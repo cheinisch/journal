@@ -30,6 +30,20 @@ function destroy_session()
     
 }
 
+function findMarkdownFiles($directory) {
+    $markdownFiles = [];
+    
+    $dirIterator = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS);
+    $iterator = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::SELF_FIRST);
+    
+    foreach ($iterator as $fileInfo) {
+        if ($fileInfo->isFile() && $fileInfo->getExtension() === 'md') {
+            $markdownFiles[] = $fileInfo->getPathname();
+        }
+    }
+    
+    return $markdownFiles;
+}
 
 function getLogin($username, $password)
  {
@@ -37,15 +51,16 @@ function getLogin($username, $password)
  }
 
 
- function loadMarkdownPosts($directory = '../storage') {
+function loadMarkdownPosts($directory = './../storage/2024-06-22/') {
   $posts = [];
-  $files = glob($directory . '/*/*/*.md');
-  
+  $files = findMarkdownFiles($directory);
+
   $parsedown = new Parsedown();
+
 
   foreach ($files as $file) {
 
-      echo 'Hallo';
+      
 
       // Beispiel: /storage/2024-06-21/post-name.md
       $pathParts = explode('/', $file);
