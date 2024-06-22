@@ -9,7 +9,8 @@ if(isset($_GET['login'])) {
 
   if(getLogin($user, $passwd))
   {
-    echo "Login";
+    create_session();
+    header("Location: ../index.php");
   }else{
     echo "fail";
   }
@@ -31,7 +32,7 @@ if(isset($_GET['login'])) {
     <div class="uk-container uk-flex uk-flex-center uk-flex-middle" style="height: 100vh;">
       <div class="uk-card uk-card-default uk-card-body uk-width-1-3@m">
         <h3 class="uk-card-title uk-text-center">Login into Diary</h3>
-        <form class="uk-form-stacked" action="login.php?login=login" method="post">
+        <form class="uk-form-stacked" action="bin/login.php?login=login" method="post">
           <input type="hidden" id="login" name="login" value="login" />
           <div class="uk-margin">
             <label class="uk-form-label" for="username">Username / Mailadresse</label>
