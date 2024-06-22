@@ -12,7 +12,7 @@ function create_session()
 
 function destroy_session()
 {
-    G
+    
 }
 
 ?>
