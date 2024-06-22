@@ -8,7 +8,7 @@
 
     if(check_session())
     {
-        header("Location: bin/journal.php");
+        header("Location: journal.php");
     }else{
         include('bin/login.php');
     }
