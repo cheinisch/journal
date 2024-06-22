@@ -4,30 +4,38 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="de">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Jornal Diary</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.19.4/css/uikit.min.css" />
-  </head>
-  <body>
+    <title>Blog mit Sidebar und Pagination</title>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.15.14/css/uikit.min.css" />
 
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.15.14/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.15.14/js/uikit-icons.min.js"></script>
+</head>
 
-<!-- Menüleiste -->
-<nav class="uk-navbar-container" uk-navbar>
-        <div class="uk-navbar-left">
-            <a class="uk-navbar-item uk-logo" href="#">Meine Seite</a>
-        </div>
-        <div class="uk-navbar-right">
-            <ul class="uk-navbar-nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Über uns</a></li>
-                <li><a href="#">Kontakt</a></li>
-            </ul>
-        </div>
-    </nav>
+<body>
+
+    <!-- Menüleiste -->
+    <div class="uk-container uk-margin-top">
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left">
+                <a class="uk-navbar-item uk-logo" href="#">Meine Seite</a>
+            </div>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Über uns</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
     <!-- Zweispaltiges Layout -->
     <div class="uk-container uk-margin-top">
@@ -55,6 +63,18 @@
                     <p class="uk-article-meta">Geschrieben am 23. Juni 2024 von Autor</p>
                     <p>Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.</p>
                 </article>
+
+                <hr class="uk-divider-icon">
+
+                <!-- Pagination -->
+                <ul class="uk-pagination" uk-margin>
+                    <li><a href="#"><span uk-pagination-previous></span></a></li>
+                    <li><a href="#">1</a></li>
+                    <li class="uk-active"><span>2</span></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#"><span uk-pagination-next></span></a></li>
+                </ul>
             </div>
 
             <!-- Sidebar mit Kalender -->
@@ -67,7 +87,6 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.19.4/js/uikit.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.19.4/js/uikit-icons.min.js"></script>
-  </body>
+</body>
+
 </html>
