@@ -1,15 +1,19 @@
 <?php
 
+$cookie_name = 'diarycms';
+$cookie_value = 'username';
+
 function check_session()
 {
-    echo 'Hello ' . htmlspecialchars($_COOKIE["diary-cms"]) . '!';
+    if(!isset($_COOKIE[$cookie_name])) {
+        return false;
+      } else {
+        return true;
+      }
 }
 function create_session()
 {
-    $value = 'nothing';
-
-    setcookie("Diary-CMS", $value);
-    setcookie("Diary-CMS", $value, time()+3600);  /* expire in 1 hour */
+    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 }
 
 
