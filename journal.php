@@ -1,5 +1,5 @@
 <?php
-
+require_once("function/function.php");
 ?>
 
 
@@ -42,13 +42,23 @@
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-                <article class="uk-article">
-                    <h1 class="uk-article-title">Erster Blogpost</h1>
-                    <p class="uk-article-meta">Geschrieben am 21. Juni 2024 von Autor</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </article>
+                
+                <?php
+                  $posts = loadMarkdownPosts(); // Funktion aus dem vorherigen Schritt
 
-                <hr class="uk-divider-icon">
+                  foreach ($posts as $post) {
+                      echo "<article class=\"uk-article\">";
+                      echo "<h1 class=\"uk-article-title\">{$post['title']}</h1>";
+                      echo "<p class=\"uk-article-meta\">Geschrieben am {$post['date']}</p>";
+                      echo "<div class=\"uk-article-content\">{$post['content']}</div>";
+                      echo "</article>";
+
+                      echo "<hr class=\"uk-divider-icon\">";
+                  }
+
+                ?>
+
+                
 
                 <article class="uk-article">
                     <h1 class="uk-article-title">Zweiter Blogpost</h1>
