@@ -79,6 +79,8 @@ function getLogin($username, $password)
     return true;
  }
 
+
+
 /*
  * Functions
  */
@@ -91,7 +93,11 @@ function get_version()
 
 function get_versionfromgit()
 {
-  return 1;
+  $owner = 'cheinisch';
+  $repo = 'journal';
+
+  $version = getLatestReleaseVersion($owner, $repo);
+  echo "Die neueste Version ist: " . ($version ?: 'Nicht gefunden');
 }
 
 
