@@ -32,7 +32,7 @@ require 'dbquery.php';
  }
 
 /*
- * Security  
+ * Cookie
  */
 
 function check_session()
@@ -49,7 +49,7 @@ function check_session()
 function create_session()
 {
     $cookie_name = 'diarycms';
-    $cookie_value = 'username';
+    $cookie_value = get_userhash(0);
 
     setcookie($cookie_name, $cookie_value, time() + (3600 * 30), "/"); // 3600 = 1 hour
 }
@@ -60,6 +60,20 @@ function destroy_session()
     
 }
 
+/*
+ * Userfunctions
+ */
+
+function get_userhash($id)
+{
+  return 123;
+}
+
+function get_idfromhash($hash)
+{
+
+}
+
 function getLogin($username, $password)
  {
     return true;
@@ -68,6 +82,17 @@ function getLogin($username, $password)
 /*
  * Functions
  */
+
+
+function get_version()
+{
+  return 0;
+}
+
+function get_versionfromgit()
+{
+  return 1;
+}
 
 
 ?>

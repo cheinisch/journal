@@ -13,20 +13,20 @@ require 'dbconnect.php';
  * @param array $tags Tags des Blogposts.
  * @return int Die ID des neu erstellten Blogposts.
  */
-function createBlogPost($title, $content, $author, $date, $location = null, $tags = []) {
+function createBlogPost($title, $content, $authorId, $date, $location = null, $tags = []) {
     $db = getDatabaseConnection();
-    $sql = "INSERT INTO blog_posts (title, content, author, date, location, tags) VALUES (:title, :content, :author, :date, :location, :tags)";
+    $sql = "INSERT INTO blog_posts (title, content, author_id, date, location, tags) VALUES (:title, :content, :author_id, :date, :location, :tags)";
     $stmt = $db->prepare($sql);
     $stmt->execute([
         ':title' => $title,
         ':content' => $content,
-        ':author' => $author,
+        ':author_id' => $authorId,
         ':date' => $date,
         ':location' => $location,
         ':tags' => json_encode($tags) // Tags als JSON speichern
     ]);
     return $db->lastInsertId();
-  }
+}
   
   /**
   * Bearbeitet einen bestehenden Blogpost in der Datenbank.
@@ -40,11 +40,11 @@ function createBlogPost($title, $content, $author, $date, $location = null, $tag
   * @param array|null $newTags Neue Tags (optional).
   * @return bool True, wenn der Blogpost aktualisiert wurde, ansonsten false.
   */
-  function editBlogPost($postId, $newTitle = null, $newContent = null, $newAuthor = null, $newDate = null, $newLocation = null, $newTags = null) {
+  function editBlogPost($postId, $newTitle = null, $newContent = null, $newAuthorId = null, $newDate = null, $newLocation = null, $newTags = null) {
     $db = getDatabaseConnection();
     $fields = [];
     $params = [':id' => $postId];
-  
+
     if ($newTitle !== null) {
         $fields[] = 'title = :title';
         $params[':title'] = $newTitle;
@@ -53,9 +53,9 @@ function createBlogPost($title, $content, $author, $date, $location = null, $tag
         $fields[] = 'content = :content';
         $params[':content'] = $newContent;
     }
-    if ($newAuthor !== null) {
-        $fields[] = 'author = :author';
-        $params[':author'] = $newAuthor;
+    if ($newAuthorId !== null) {
+        $fields[] = 'author_id = :author_id';
+        $params[':author_id'] = $newAuthorId;
     }
     if ($newDate !== null) {
         $fields[] = 'date = :date';
@@ -69,11 +69,11 @@ function createBlogPost($title, $content, $author, $date, $location = null, $tag
         $fields[] = 'tags = :tags';
         $params[':tags'] = json_encode($newTags); // Tags als JSON speichern
     }
-  
+
     $sql = "UPDATE blog_posts SET " . implode(', ', $fields) . " WHERE id = :id";
     $stmt = $db->prepare($sql);
     return $stmt->execute($params);
-  }
+}
   
   /**
   * Liest einen Blogpost aus der Datenbank aus.
@@ -91,7 +91,35 @@ function createBlogPost($title, $content, $author, $date, $location = null, $tag
         $post['tags'] = json_decode($post['tags'], true); // Tags von JSON in ein Array umwandeln
     }
     return $post;
-  }
+}
+
+/**
+ * Liest alle Blogposts aus der Datenbank aus und gibt sie zusammen mit dem Autorennamen zurück.
+ *
+ * @param int $limit Die Anzahl der Blogposts, die abgerufen werden sollen.
+ * @param int $offset Der Startpunkt für den Abruf.
+ * @return array Array von Blogposts.
+ */
+
+function getAllBlogPosts($limit = 10, $offset = 0) {
+    $db = getDatabaseConnection();
+    $sql = "SELECT bp.*, u.username AS author FROM blog_posts bp
+            JOIN users u ON bp.author_id = u.id
+            ORDER BY bp.date DESC
+            LIMIT :limit OFFSET :offset";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    $posts = $stmt->fetchAll();
+    
+    // Tags von JSON in ein Array umwandeln
+    foreach ($posts as &$post) {
+        $post['tags'] = json_decode($post['tags'], true);
+    }
+    
+    return $posts;
+}
   
   
   
@@ -108,4 +136,32 @@ function createBlogPost($title, $content, $author, $date, $location = null, $tag
     return $stmt->execute([':id' => $postId]);
   }
 
+
+  function createUser($username, $email, $password, $userrole = 'reader') {
+    $db = getDatabaseConnection();
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO users (username, email, password, userrole) VALUES (:username, :email, :password, :userrole)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':username' => $username,
+        ':email' => $email,
+        ':password' => $hashedPassword,
+        ':userrole' => $userrole
+    ]);
+    return $db->lastInsertId();
+}
+
+/**
+ * Liest die Benutzerdetails aus der Datenbank aus.
+ *
+ * @param int $userId Die ID des Benutzers.
+ * @return array|null Die Benutzerdetails oder null, wenn nicht gefunden.
+ */
+function getUserById($userId) {
+    $db = getDatabaseConnection();
+    $sql = "SELECT * FROM users WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([':id' => $userId]);
+    return $stmt->fetch();
+}
 ?>
