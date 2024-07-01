@@ -24,4 +24,4 @@ function getDatabaseConnection() {
         die("Datenbankverbindung fehlgeschlagen: " . $e->getMessage());
     }
 }
-?>
+?>  
