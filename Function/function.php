@@ -98,6 +98,9 @@ function get_versionfromgit()
 
   $version = getLatestReleaseVersion($owner, $repo);
   echo "Die neueste Version ist: " . ($version ?: 'Nicht gefunden');
+
+  return $version;
+
 }
 
 
