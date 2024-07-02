@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <div class="uk-container uk-margin-large-top">
-    <h1>Blog Installation</h1>
+    <h1>Diary CMS Installation</h1>
     
     <?php if ($error): ?>
         <div class="uk-alert-danger" uk-alert>
