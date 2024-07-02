@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
     
-    <form class="uk-form-stacked" method="post">
+    <form class="uk-form-stacked uk-column-1-2" method="post">
         <fieldset class="uk-fieldset">
             <legend class="uk-legend">Datenbankverbindung</legend>
 
