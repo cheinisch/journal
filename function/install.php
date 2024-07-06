@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     userrole ENUM('admin', 'editor', 'user') NOT NULL
                 );
                 
-                CREATE TABLE IF NOT EXISTS blog_posts (
+                CREATE TABLE IF NOT EXISTS posts (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     title VARCHAR(255) NOT NULL,
                     content TEXT NOT NULL,
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]
             ];
             ?>";
-            file_put_contents('config.php', $configContent);
+            file_put_contents('storage/config.php', $configContent);
 
             $success = "Installation erfolgreich abgeschlossen!";
         } catch (PDOException $e) {
@@ -110,7 +110,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a class="uk-alert-close" uk-close></a>
             <p><?php echo htmlspecialchars($success); ?></p>
         </div>
-    <?php endif; ?>
+    <?php 
+            header("Location: index.php");
+            endif; ?>
     
     <form class="uk-form-stacked uk-column-1-2" method="post">
         <fieldset class="uk-fieldset">

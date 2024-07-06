@@ -3,7 +3,7 @@
 $cookie_name = 'diarycms';
 $cookie_value = 'username';
 
-require 'lib/parsedown-1.7.4/Parsedown.php';
+#require 'lib/parsedown-1.7.4/Parsedown.php';
 require 'dbquery.php';
 
 
@@ -14,7 +14,13 @@ require 'dbquery.php';
 
  function check_installation()
  {
-  
+  $config_file = 'storage/config.php';
+  if(file_exists($config_file))
+  {
+    return true;
+  }else{
+    return false;
+  }
  }
 
 /*
