@@ -36,6 +36,7 @@ if(!check_session())
                 <ul class="uk-navbar-nav">
                     <li><a>Hello <?php echo get_currentusername(); ?></a></li>
                     <li><a href="" class="uk-icon-link" uk-icon="settings"></a></li>
+                    <li><a href="">Write new one</a></li>
                     <li><a href="" class="uk-icon-link" uk-icon="user"></a></li>
                     <li><a href="index.php?login=logout" class="uk-icon-link" uk-icon="sign-out"></a></li>
                 </ul>
@@ -72,25 +73,6 @@ if(!check_session())
                     <hr class="uk-divider-icon">
                 <?php endforeach; ?>
             <?php endif; ?>
-
-                
-
-                <article class="uk-article">
-                    <h1 class="uk-article-title">Zweiter Blogpost</h1>
-                    <p class="uk-article-meta">Geschrieben am 22. Juni 2024 von Autor</p>
-                    <p>Curabitur blandit tempus porttitor. Maecenas faucibus mollis interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </article>
-
-                <hr class="uk-divider-icon">
-
-                <article class="uk-article">
-                    <h1 class="uk-article-title">Dritter Blogpost</h1>
-                    <p class="uk-article-meta">Geschrieben am 23. Juni 2024 von Autor</p>
-                    <p>Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.</p>
-                </article>
-
-                <hr class="uk-divider-icon">
-
                 <!-- Pagination -->
                 <ul class="uk-pagination" uk-margin>
                     <li><a href="?page=<?php echo max(1, $currentPage - 1); ?>"><span uk-pagination-previous></span></a></li>
