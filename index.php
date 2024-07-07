@@ -4,9 +4,29 @@
  * Include required Files
  */
 
- require_once("function/function.php");
+require_once("function/function.php");
 
-    check_installation();
+/*
+ * Include Login Features
+ */
+
+if(isset($_GET['login'])) {
+
+    require_once('function/function.php');
+
+    $user = $_POST['username'];
+    $passwd = $_POST['password'];
+
+    if(getLogin($user, $passwd))
+    {
+        create_session();
+        header("Location: index.php");
+    }else{
+        echo "fail";
+    }
+
+}
+    
     if(!check_installation())
     {
         include('function/install.php');

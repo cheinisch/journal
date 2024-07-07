@@ -9,7 +9,7 @@
  */
 function getDatabaseConnection() {
     $host = 'localhost'; // Hostname oder IP-Adresse
-    $dbname = 'blog';    // Datenbankname
+    $dbname = 'journal';    // Datenbankname
     $username = 'root';  // Benutzername
     $password = '';      // Passwort
 
