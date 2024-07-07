@@ -1,5 +1,6 @@
 <?php
 require_once("function/function.php");
+echo get_userfromsession();
 ?>
 
 
