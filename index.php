@@ -19,7 +19,7 @@ if(isset($_GET['login'])) {
 
     if(getLogin($user, $passwd))
     {
-        create_session();
+        create_session($user);
         header("Location: index.php");
     }else{
         echo "fail";

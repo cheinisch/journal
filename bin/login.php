@@ -1,24 +1,3 @@
-<?php
-/*
-if(isset($_GET['login'])) {
-
-  require_once('function/function.php');
-
-  $user = $_POST['username'];
-  $passwd = $_POST['password'];
-
-  if(getLogin($user, $passwd))
-  {
-    create_session();
-    header("Location: index.php");
-  }else{
-    echo "fail";
-  }
-
-} */
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>

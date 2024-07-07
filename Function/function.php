@@ -52,10 +52,10 @@ function check_session()
         return true;
       }
 }
-function create_session()
+function create_session($username)
 {
     $cookie_name = 'diarycms';
-    $cookie_value = get_userhash(0);
+    $cookie_value = get_userhash($username);
 
     setcookie($cookie_name, $cookie_value, time() + (3600 * 30), "/"); // 3600 = 1 hour
 }
@@ -70,9 +70,10 @@ function destroy_session()
  * Userfunctions
  */
 
-function get_userhash($id)
+function get_userhash($username)
 {
-  return 123;
+  $userhash = hash('sha256', $username);
+  return $userhash;
 }
 
 function get_idfromhash($hash)
