@@ -1,6 +1,11 @@
 <?php
 require_once("function/function.php");
-echo get_userfromhash();
+
+if(!check_session())
+{
+    header('location: index.php');
+}
+
 ?>
 
 
