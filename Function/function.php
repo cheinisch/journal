@@ -103,10 +103,19 @@ function get_userfromhash()
   foreach ($users as $user) {
     if(get_userhash($user['username']) == get_userfromsession())
     {
-    echo "ID: " . $user['id'] . ", Username: " . $user['username'] . ", Rolle: " . $user['userrole'] . "<br>";
+    return $user;
     }
+  }
+    return "";
+
+
 }
 
+function get_currentusername()
+{
+  $username = get_userfromhash();
+
+  return $username['username'];
 }
 
 function getLogin($username, $password)

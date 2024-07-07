@@ -34,10 +34,10 @@ if(!check_session())
             </div>
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Über uns</a></li>
-                    <li><a href="index.php?login=logout">Logout</a></li>
+                    <li><a>Hello <?php echo get_currentusername(); ?></a></li>
+                    <li><a href="" class="uk-icon-link" uk-icon="settings"></a></li>
+                    <li><a href="" class="uk-icon-link" uk-icon="user"></a></li>
+                    <li><a href="index.php?login=logout" class="uk-icon-link" uk-icon="sign-out"></a></li>
                 </ul>
             </div>
         </nav>
