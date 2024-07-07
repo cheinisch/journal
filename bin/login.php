@@ -1,5 +1,5 @@
 <?php
-
+/*
 if(isset($_GET['login'])) {
 
   require_once('function/function.php');
@@ -15,7 +15,7 @@ if(isset($_GET['login'])) {
     echo "fail";
   }
 
-}
+} */
 
 ?>
 
