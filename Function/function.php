@@ -65,11 +65,8 @@ function get_userfromsession()
   $cookie_name = 'diarycms';
 
   if(!isset($_COOKIE[$cookie_name])) {
-    echo "Cookie named '" . $cookie_name . "' is not set!";
     return "";
   } else {
-    echo "Cookie '" . $cookie_name . "' is set!<br>";
-    echo "Value is: " . $_COOKIE[$cookie_name];
     return $_COOKIE[$cookie_name];
   }
 
@@ -79,7 +76,8 @@ function get_userfromsession()
 
 function destroy_session()
 {
-    
+  $cookie_name = 'diarycms';
+  setcookie($cookie_name, "", time() - (3600 * 30), "/"); // 3600 = 1 hour
 }
 
 /*
@@ -92,7 +90,7 @@ function get_userhash($username)
   return $userhash;
 }
 
-function get_userfromhash($hash)
+function get_userfromhash()
 {
   $db = getDatabaseConnection();
 
@@ -101,6 +99,14 @@ function get_userfromhash($hash)
   $stmt->execute();
 
   $users = $stmt->fetchAll();
+
+  foreach ($users as $user) {
+    if(get_userhash($user['username']) == get_userfromsession())
+    {
+    echo "ID: " . $user['id'] . ", Username: " . $user['username'] . ", Rolle: " . $user['userrole'] . "<br>";
+    }
+}
+
 }
 
 function getLogin($username, $password)

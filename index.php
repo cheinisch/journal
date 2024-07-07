@@ -14,15 +14,24 @@ if(isset($_GET['login'])) {
 
     require_once('function/function.php');
 
-    $user = $_POST['username'];
-    $passwd = $_POST['password'];
-
-    if(getLogin($user, $passwd))
+    if($_GET['login'] == 'login')
     {
-        create_session($user);
-        header("Location: index.php");
+        
+
+        $user = $_POST['username'];
+        $passwd = $_POST['password'];
+
+        if(getLogin($user, $passwd))
+        {
+            create_session($user);
+            header("Location: index.php");
+        }else{
+            echo "fail";
+        }
     }else{
-        echo "fail";
+        destroy_session();
+        sleep(2);
+        header("Location: index.php");
     }
 
 }

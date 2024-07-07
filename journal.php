@@ -1,6 +1,6 @@
 <?php
 require_once("function/function.php");
-echo get_userfromsession();
+echo get_userfromhash();
 ?>
 
 
@@ -32,7 +32,7 @@ echo get_userfromsession();
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Blog</a></li>
                     <li><a href="#">Über uns</a></li>
-                    <li><a href="#">Kontakt</a></li>
+                    <li><a href="index.php?login=logout">Logout</a></li>
                 </ul>
             </div>
         </nav>
