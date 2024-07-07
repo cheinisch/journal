@@ -1,6 +1,6 @@
 <?php
 require_once("function/function.php");
-
+// check active Session
 if(!check_session())
 {
     header('location: index.php');
