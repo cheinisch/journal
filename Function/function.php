@@ -81,9 +81,28 @@ function get_idfromhash($hash)
 }
 
 function getLogin($username, $password)
- {
-    return true;
- }
+{
+  $db = getDatabaseConnection();
+
+  $sql = "SELECT id, password FROM users WHERE username = :username";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+  $stmt->execute();
+  
+  $user = $stmt->fetch();
+
+  // Benutzername existiert nicht
+  if (!$user) {
+      return false;
+  }
+
+  // Passwort überprüfen
+  if (password_verify($password, $user['password'])) {
+      return true;
+  }
+
+  return false;
+}
 
 
 
