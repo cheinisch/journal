@@ -35,15 +35,21 @@ if(isset($_GET['login'])) {
     }
 
 }
-    
+
+if(isset($_GET['journal'])) {
+    #include('function/journal.php');
+}else{
     if(!check_installation())
     {
         include('function/install.php');
     }
     elseif(check_session())
     {
-        header("Location: journal.php");
+        header("Location: index.php?journal");
     }else{
         include('bin/login.php');
     }
+}
+    
+    
 ?>
