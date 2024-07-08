@@ -37,7 +37,7 @@ if(isset($_GET['login'])) {
 }
 
 if(isset($_GET['journal'])) {
-    #include('function/journal.php');
+    include('function/journal.php');
 }else{
     if(!check_installation())
     {
