@@ -4,7 +4,7 @@
  * Include required Files
  */
 
-require_once("function/function.php");
+require_once("system/function/function.php");
 
 /*
  * Include Login Features
@@ -12,7 +12,7 @@ require_once("function/function.php");
 
 if(isset($_GET['login'])) {
 
-    require_once('function/function.php');
+    #require_once('system/function/function.php');
 
     if($_GET['login'] == 'login')
     {
@@ -37,17 +37,17 @@ if(isset($_GET['login'])) {
 }
 
 if(isset($_GET['journal'])) {
-    include('function/journal.php');
+    include('system/gui/journal.php');
 }else{
     if(!check_installation())
     {
-        include('function/install.php');
+        include('system/install.php');
     }
     elseif(check_session())
     {
         header("Location: index.php?journal");
     }else{
-        include('bin/login.php');
+        include('system/gui/login.php');
     }
 }
     
