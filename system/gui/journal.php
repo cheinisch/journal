@@ -1,5 +1,5 @@
 <?php
-require_once("function/function.php");
+require_once("system/function/function.php");
 // check active Session
 if(!check_session())
 {
