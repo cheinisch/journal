@@ -118,6 +118,53 @@ function get_currentusername()
   return $username['username'];
 }
 
+
+/**
+ * Prüft, ob ein Benutzer Adminrechte hat.
+ *
+ * @param int $userID Die Benutzer-ID.
+ * @return bool True, wenn der Benutzer Adminrechte hat, andernfalls false.
+ */
+function isUserAdmin($userID) {
+  $db = getDatabaseConnection();
+
+  $sql = "SELECT userrole FROM users WHERE id = :userID";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+  $stmt->execute();
+
+  $user = $stmt->fetch();
+
+  if ($user && $user['userrole'] === 'admin') {
+      return true;
+  }
+
+  return false;
+}
+
+/**
+ * Holt die Benutzer-ID basierend auf dem Benutzernamen.
+ *
+ * @param string $username Der Benutzername.
+ * @return int|null Die Benutzer-ID oder null, wenn der Benutzer nicht existiert.
+ */
+function getIDFromUsername($username) {
+  $db = getDatabaseConnection();
+
+  $sql = "SELECT id FROM users WHERE username = :username";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+  $stmt->execute();
+
+  $user = $stmt->fetch();
+
+  if ($user) {
+      return $user['id'];
+  }
+
+  return null;
+}
+
 function getLogin($username, $password)
 {
   $db = getDatabaseConnection();
