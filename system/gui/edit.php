@@ -11,6 +11,7 @@
     <!-- UIkit JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.15.14/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.15.14/js/uikit-icons.min.js"></script>
+    <script src="system/gui/uikit/js/datepicker.js"></script>
 </head>
 
 <body>
@@ -40,35 +41,26 @@
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-                
-            <?php if (empty($posts)): ?>
-                <p>Keine Blogposts gefunden.</p>
-            <?php else: ?>
-                <?php foreach ($posts as $post): ?>
-                    <article class="uk-article">
-                        <h2><?php echo htmlspecialchars($post['title']); ?></h2>
-                        <p class="uk-article-meta">
-                            Geschrieben am <?php echo htmlspecialchars($post['date']); ?> von <?php echo htmlspecialchars($post['author']); ?>
-                            <?php if (!empty($post['location'])): ?>
-                                | Ort: <?php echo htmlspecialchars($post['location']); ?>
-                            <?php endif; ?>
-                            <?php if (!empty($post['tags'])): ?>
-                                | Tags: <?php echo implode(', ', array_map('htmlspecialchars', $post['tags'])); ?>
-                            <?php endif; ?>
-                        </p>
-                        <div>
-                            <?php echo nl2br(htmlspecialchars(substr($post['content'], 0, 200))); ?>...
-                        </div>
-                        <a href="post.php?id=<?php echo $post['id']; ?>" class="uk-button uk-button-text">Weiterlesen</a>
-                    </article>
-                    <hr class="uk-divider-icon">
-                <?php endforeach; ?>
-            <?php endif; ?>
-                <!-- Pagination -->
-                <ul class="uk-pagination" uk-margin>
-                    <li><a href="?page=<?php echo max(1, $currentPage - 1); ?>"><span uk-pagination-previous></span></a></li>
-                    <li><a href="?page=<?php echo $currentPage + 1; ?>"><span uk-pagination-next></span></a></li>
-                </ul>
+            <form>
+                <fieldset class="uk-fieldset">
+
+                    <legend class="uk-legend">Neuer Eintrag</legend>
+
+                    <div class="uk-margin">
+                        <input class="uk-input" type="text" placeholder="Headline" aria-label="Input">
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="date">Date</label>
+                        <input id="date" class="uk-input" type="text" data-uk-datepicker>
+                    </div>
+
+                    <div class="uk-margin">
+                        <textarea class="uk-textarea" rows="5" placeholder="Textarea" aria-label="Textarea"></textarea>
+                    </div>
+
+                </fieldset>
+            </form>              
             </div>
 
             <!-- Sidebar mit Kalender -->
@@ -80,6 +72,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        UIkit.util.ready(function () {
+            UIkit.datepicker('#date', {
+                format: 'YYYY-MM-DD',
+                i18n: {
+                    months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+                    weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+                    weekdaysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+                }
+            });
+        });
+    </script>
 
 </body>
 
