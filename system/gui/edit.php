@@ -7,11 +7,11 @@
     <title>Blog mit Sidebar und Pagination</title>
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.15.14/css/uikit.min.css" />
+    <link rel="stylesheet" href="systm/gui/template/style.css" />
 
     <!-- UIkit JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.15.14/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.15.14/js/uikit-icons.min.js"></script>
-    <script src="system/gui/uikit/js/datepicker.js"></script>
 </head>
 
 <body>
@@ -51,9 +51,11 @@
                     </div>
 
                     <div class="uk-margin">
-                        <label class="uk-form-label" for="date">Date</label>
-                        <input id="date" class="uk-input" type="text" data-uk-datepicker>
-                    </div>
+
+                <label for="dateofbirth">Date Of Birth</label>
+                    <input type="date" name="dateofbirth" id="dateofbirth">
+                </div>
+
 
                     <div class="uk-margin">
                         <textarea class="uk-textarea" rows="5" placeholder="Textarea" aria-label="Textarea"></textarea>
