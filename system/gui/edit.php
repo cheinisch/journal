@@ -41,7 +41,7 @@
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-            <form>
+            <form action="save.php" method="get">
                 <fieldset class="uk-fieldset">
 
                     <legend class="uk-legend">Neuer Eintrag</legend>
@@ -59,6 +59,10 @@
 
                     <div class="uk-margin">
                         <textarea class="uk-textarea" rows="5" placeholder="Textarea" aria-label="Textarea"></textarea>
+                    </div>
+
+                    <div class="uk-margin">
+                    <button class="uk-button uk-button-primary" type="submit">Save</button>
                     </div>
 
                 </fieldset>
