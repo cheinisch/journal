@@ -41,38 +41,36 @@
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-            <form action="save.php" method="get">
-                <fieldset class="uk-fieldset">
+            <form action="save.php" method="get" class="uk-grid-small" uk-grid>
 
                     <legend class="uk-legend">Neuer Eintrag</legend>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-1">
                         <input class="uk-input" type="text" placeholder="Headline" aria-label="Input">
                     </div>
 
-                    <div class="uk-margin">
-                <label for="date" class="uk-form-label">Datum auswählen:</label>
-                <div class="uk-form-controls">
-                    <input id="date" class="uk-input" type="date" value="<?php echo date("Y-m-d");?>">
-                </div>
-            </div>
-            <div class="uk-margin">
-                <label for="time" class="uk-form-label">Uhrzeit auswählen:</label>
-                <div class="uk-form-controls">
-                    <input id="time" class="uk-input" type="time" value="<?php echo date("H:i");?>">
-                </div>
-            </div>
+                    <div class="uk-width-1-2@s">
+                        <label for="date" class="uk-form-label">Datum auswählen:</label>
+                        <div class="uk-form-controls">
+                            <input id="date" class="uk-input" type="date" value="<?php echo date("Y-m-d");?>">
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@s">
+                        <label for="time" class="uk-form-label">Uhrzeit auswählen:</label>
+                        <div class="uk-form-controls">
+                            <input id="time" class="uk-input" type="time" value="<?php echo date("H:i");?>">
+                        </div>
+                    </div>
 
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-1">
                         <textarea class="uk-textarea" rows="5" placeholder="Textarea" aria-label="Textarea"></textarea>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-1">
                     <button class="uk-button uk-button-primary" type="submit">Save</button>
                     </div>
 
-                </fieldset>
             </form>              
             </div>
 
