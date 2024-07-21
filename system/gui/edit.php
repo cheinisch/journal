@@ -53,13 +53,13 @@
                     <div class="uk-margin">
                 <label for="date" class="uk-form-label">Datum auswählen:</label>
                 <div class="uk-form-controls">
-                    <input id="date" class="uk-input" type="date" value="2024-07-21">
+                    <input id="date" class="uk-input" type="date" value="<?php echo date("Y-m-d");?>">
                 </div>
             </div>
             <div class="uk-margin">
                 <label for="time" class="uk-form-label">Uhrzeit auswählen:</label>
                 <div class="uk-form-controls">
-                    <input id="time" class="uk-input" type="time" value="14:30">
+                    <input id="time" class="uk-input" type="time" value="<?php echo date("H:i");?>">
                 </div>
             </div>
 
