@@ -52,7 +52,7 @@ if(isset($_GET['journal'])) {
 }else{
     if(!check_installation())
     {
-        include('system/install.php');
+        include('system/function/install.php');
     }
     elseif(check_session())
     {

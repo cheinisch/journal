@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button class="uk-button uk-button-primary" type="submit">Einstellungen speichern</button>
             </div>
         </form>
+        Version: <?php echo get_version(); ?>, <?php get_versionfromgit(); ?>
 
             </div>
 

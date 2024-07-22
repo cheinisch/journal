@@ -176,7 +176,48 @@ function get_time_fromTimestamp($timestamp)
 
 function get_version()
 {
-  return 0;
+
+  try {
+      $versionFilePath = 'VERSION';
+      $version = getVersionFromFile($versionFilePath);
+      echo "Installierte Version: " . htmlspecialchars($version);
+  } catch (Exception $e) {
+      echo "Fehler: " . htmlspecialchars($e->getMessage());
+  }
+
+}
+
+function getVersionFromFile($filePath) {
+  if (file_exists($filePath) && is_readable($filePath)) {
+      $version = file_get_contents($filePath);
+      return trim($version);
+  } else {
+      throw new Exception("Datei nicht gefunden oder nicht lesbar.");
+  }
+}
+
+function getLatestGitHubRelease($repoOwner, $repoName) {
+  $url = "https://api.github.com/repos/$repoOwner/$repoName/releases/latest";
+  
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // GitHub API erfordert einen User-Agent Header
+
+  $response = curl_exec($ch);
+  curl_close($ch);
+
+  if ($response === false) {
+      throw new Exception("Fehler beim Abrufen der GitHub-Version.");
+  }
+
+  $data = json_decode($response, true);
+  print_r($data);
+  if (isset($data['tag_name'])) {
+      return $data['tag_name'];
+  } else {
+      throw new Exception("Version konnte nicht abgerufen werden.");
+  }
 }
 
 function get_versionfromgit()
@@ -184,10 +225,15 @@ function get_versionfromgit()
   $owner = 'cheinisch';
   $repo = 'journal';
 
-  $version = getLatestReleaseVersion($owner, $repo);
-  echo "Die neueste Version ist: " . ($version ?: 'Nicht gefunden');
+  try {
+    $repoOwner = 'owner';  // Ersetze 'owner' durch den Besitzer des Repositories
+    $repoName = 'repository';  // Ersetze 'repository' durch den Namen des Repositories
+    $latestVersion = getLatestGitHubRelease($repoOwner, $repoName);
+    echo "Aktuelle GitHub-Version: " . htmlspecialchars($latestVersion);
+} catch (Exception $e) {
+    echo "Fehler: " . htmlspecialchars($e->getMessage());
+}
 
-  return $version;
 
 }
 
