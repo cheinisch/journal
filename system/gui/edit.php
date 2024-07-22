@@ -41,7 +41,7 @@
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-            <form class="uk-grid-small" uk-grid action="system/function/save.php" method="get" >
+            <form class="uk-grid-small" uk-grid action="system/function/save.php?modus=new" method="post" >
 
                     <legend class="uk-legend">Neuer Eintrag</legend>
 

@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     title VARCHAR(255) NOT NULL,
                     content TEXT NOT NULL,
                     author_id INT NOT NULL,
-                    date DATE NOT NULL,
+                    date TIMESTAMP NOT NULL,
                     location VARCHAR(255),
                     tags JSON,
                     FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE

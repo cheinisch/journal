@@ -15,7 +15,7 @@ require 'dbconnect.php';
  */
 function createBlogPost($title, $content, $authorId, $date, $location = null, $tags = []) {
     $db = getDatabaseConnection();
-    $sql = "INSERT INTO blog_posts (title, content, author_id, date, location, tags) VALUES (:title, :content, :author_id, :date, :location, :tags)";
+    $sql = "INSERT INTO posts (title, content, author_id, date, location, tags) VALUES (:title, :content, :author_id, :date, :location, :tags)";
     $stmt = $db->prepare($sql);
     $stmt->execute([
         ':title' => $title,
