@@ -118,8 +118,11 @@ if(isset($_GET['new-entry'])) {
                         <textarea id="text" name="text" class="uk-textarea" rows="5" placeholder="Textarea" aria-label="Textarea"><?php echo $post['content']?></textarea>
                     </div>
 
-                    <div class="uk-width-1-1">
+                    <div class="uk-width-1-6@s">
                     <button class="uk-button uk-button-primary" type="submit" value="submit">Update</button>
+                    </div>
+                    <div class="uk-width-1-6@s">
+                    <button onclick="location.href='index.php?post=<?php echo $postID; ?>'" class="uk-button uk-button-primary" type="button">Cancel</button>
                     </div>
 
             </form>              
