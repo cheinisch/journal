@@ -52,6 +52,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     tags JSON,
                     FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
                 );
+
+                CREATE TABLE IF NOT EXISTS settings (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    site_name VARCHAR(255) NOT NULL DEFAULT 'New Site',
+                    language VARCHAR(10) NOT NULL DEFAULT 'en-EN',
+                    template VARCHAR(255) NOT NULL DEFAULT 'default'
+                );
+
+                INSERT INTO settings (site_name, language, template) VALUES
+                    ('New Site', 'en-EN', 'default')
+
             ");
 
             // Admin-Benutzer erstellen

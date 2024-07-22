@@ -1,10 +1,16 @@
+<?php
+
+$settings = getSettings();
+
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog mit Sidebar und Pagination</title>
+    <title><?php echo htmlspecialchars($settings['site_name']); ?></title>
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.15.14/css/uikit.min.css" />
     <link rel="stylesheet" href="systm/gui/template/style.css" />
@@ -20,7 +26,7 @@
     <div class="uk-container uk-margin-top">
         <nav class="uk-navbar-container" uk-navbar>
             <div class="uk-navbar-left">
-                <a class="uk-navbar-item uk-logo" href="#">Meine Seite</a>
+                <a class="uk-navbar-item uk-logo" href="index.php"><?php echo htmlspecialchars($settings['site_name']); ?></a>
             </div>
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav">
