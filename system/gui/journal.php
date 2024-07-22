@@ -51,7 +51,7 @@ if(!check_session())
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-                
+            <?php $posts = getAllBlogPosts(); ?>
             <?php if (empty($posts)): ?>
                 <p>Keine Blogposts gefunden.</p>
             <?php else: ?>
@@ -70,7 +70,7 @@ if(!check_session())
                         <div>
                             <?php echo nl2br(htmlspecialchars(substr($post['content'], 0, 200))); ?>...
                         </div>
-                        <a href="post.php?id=<?php echo $post['id']; ?>" class="uk-button uk-button-text">Weiterlesen</a>
+                        <a href="index.php?post=<?php echo $post['id']; ?>" class="uk-button uk-button-text">Weiterlesen</a>
                     </article>
                     <hr class="uk-divider-icon">
                 <?php endforeach; ?>

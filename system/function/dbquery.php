@@ -103,7 +103,7 @@ function createBlogPost($title, $content, $authorId, $date, $location = null, $t
 
 function getAllBlogPosts($limit = 10, $offset = 0) {
     $db = getDatabaseConnection();
-    $sql = "SELECT bp.*, u.username AS author FROM blog_posts bp
+    $sql = "SELECT bp.*, u.username AS author FROM posts bp
             JOIN users u ON bp.author_id = u.id
             ORDER BY bp.date DESC
             LIMIT :limit OFFSET :offset";
