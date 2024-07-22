@@ -36,9 +36,12 @@ if(isset($_GET['login'])) {
 
 }
 
+# Journal Ansicht
 if(isset($_GET['journal'])) {
+    # Läd Journal Layout
     include('system/gui/journal.php');
 }else if(isset($_GET['new-entry'])){
+    # Läd Edit Layout
     include('system/gui/edit.php');
 }else if(isset($_GET['post'])){
     include('system/gui/post.php');

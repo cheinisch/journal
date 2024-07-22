@@ -20,7 +20,11 @@ if(!check_session())
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-            <?php $posts = getAllBlogPosts(); ?>
+            <?php 
+            $userid = get_userfromhash();
+            $posts = getAllBlogPosts($userid['id']);
+            
+            ?>
             <?php if (empty($posts)): ?>
                 <p>Keine Blogposts gefunden.</p>
             <?php else: ?>

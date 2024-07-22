@@ -83,7 +83,7 @@ function createBlogPost($title, $content, $authorId, $date, $location = null, $t
   */
   function readBlogPost($postId) {
     $db = getDatabaseConnection();
-    $sql = "SELECT * FROM blog_posts WHERE id = :id";
+    $sql = "SELECT * FROM posts WHERE id = :id";
     $stmt = $db->prepare($sql);
     $stmt->execute([':id' => $postId]);
     $post = $stmt->fetch();
@@ -101,13 +101,17 @@ function createBlogPost($title, $content, $authorId, $date, $location = null, $t
  * @return array Array von Blogposts.
  */
 
-function getAllBlogPosts($limit = 10, $offset = 0) {
+ #function getAllBlogPosts($limit = 10, $offset = 0) {
+ function getAllBlogPosts($userId, $limit = 10, $offset = 0) {
     $db = getDatabaseConnection();
+    
     $sql = "SELECT bp.*, u.username AS author FROM posts bp
             JOIN users u ON bp.author_id = u.id
+            WHERE bp.author_id = :userId
             ORDER BY bp.date DESC
             LIMIT :limit OFFSET :offset";
     $stmt = $db->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
     $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
     $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
