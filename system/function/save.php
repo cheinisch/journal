@@ -21,6 +21,11 @@ if ($modus = 'new')
 
     #echo $headline .', ' . $text .', ' .  $user['id'] .', ' . $date;
     createBlogPost($headline, $text, $user['id'], $timestamp, null, null);
+
+    $lastID = getLastBlogPostId();
+
+    header('Location: index.php?edit='.$lastID);
+
 }else if($modus = 'update')
 {
     $id = $_GET['id'];

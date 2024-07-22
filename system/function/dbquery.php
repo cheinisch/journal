@@ -121,6 +121,7 @@ function getAllBlogPosts($limit = 10, $offset = 0) {
     return $posts;
 }
   
+
   
   
   /**
@@ -136,6 +137,16 @@ function getAllBlogPosts($limit = 10, $offset = 0) {
     return $stmt->execute([':id' => $postId]);
   }
 
+  function getLastBlogPostId() {
+    $db = getDatabaseConnection();
+
+    $sql = "SELECT MAX(id) AS last_id FROM blog_posts";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+
+    $result = $stmt->fetch();
+    return $result['last_id'];
+}
 
   function createUser($username, $email, $password, $userrole = 'reader') {
     $db = getDatabaseConnection();

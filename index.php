@@ -42,6 +42,8 @@ if(isset($_GET['journal'])) {
     include('system/gui/edit.php');
 }else if(isset($_GET['post'])){
     include('system/gui/post.php');
+}else if(isset($_GET['edit'])){
+    include('system/gui/edit.php');
 }else{
     if(!check_installation())
     {
