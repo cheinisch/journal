@@ -8,12 +8,14 @@ $modus = $_GET['modus'];
 
 echo "Headline: " . $headline . " Text: " . $text;
 
+$user = get_userfromhash();
+
 if ($modus = 'new')
 {
     # Neu Anlegen eines Beitrags
     require_once('function.php');
 
-    $user = get_userfromhash();
+    
 
     $timestamp = $date . ' ' . $time . ':00';
     
@@ -24,11 +26,20 @@ if ($modus = 'new')
 
     $lastID = getLastBlogPostId();
 
-    header('Location: index.php?edit='.$lastID);
+    header('Location: ../../index.php?edit='.$lastID);
 
 }else if($modus = 'update')
 {
+
+    require_once('function.php');
+
     $id = $_GET['id'];
+
+    $timestamp = $date . ' ' . $time . ':00';
+
+    editBlogPost($id, $headline, $text, $user['id'], $timestamp, null, null);
+
+    header('Location: ../../index.php?edit='.$id);
 }
 
 ?>

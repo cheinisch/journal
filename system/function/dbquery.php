@@ -70,7 +70,7 @@ function createBlogPost($title, $content, $authorId, $date, $location = null, $t
         $params[':tags'] = json_encode($newTags); // Tags als JSON speichern
     }
 
-    $sql = "UPDATE blog_posts SET " . implode(', ', $fields) . " WHERE id = :id";
+    $sql = "UPDATE posts SET " . implode(', ', $fields) . " WHERE id = :id";
     $stmt = $db->prepare($sql);
     return $stmt->execute($params);
 }
@@ -136,7 +136,7 @@ function createBlogPost($title, $content, $authorId, $date, $location = null, $t
    */
   function deleteBlogPost($postId) {
     $db = getDatabaseConnection();
-    $sql = "DELETE FROM blog_posts WHERE id = :id";
+    $sql = "DELETE FROM posts WHERE id = :id";
     $stmt = $db->prepare($sql);
     return $stmt->execute([':id' => $postId]);
   }
@@ -144,7 +144,7 @@ function createBlogPost($title, $content, $authorId, $date, $location = null, $t
   function getLastBlogPostId() {
     $db = getDatabaseConnection();
 
-    $sql = "SELECT MAX(id) AS last_id FROM blog_posts";
+    $sql = "SELECT MAX(id) AS last_id FROM posts";
     $stmt = $db->prepare($sql);
     $stmt->execute();
 
