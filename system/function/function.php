@@ -164,6 +164,16 @@ function getLogin($username, $password)
  */
 
 
+function get_date_fromTimestamp($timestamp)
+{
+
+}
+
+function get_time_fromTimestamp($timestamp)
+{
+
+}
+
 function get_version()
 {
   return 0;

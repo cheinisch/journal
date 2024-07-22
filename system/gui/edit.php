@@ -83,6 +83,9 @@ if(isset($_GET['new-entry'])) {
         $postID = $_GET['edit'];
 
         $post = readBlogPost($postID);
+
+        $date = date("Y-m-d", (strtotime($post['date'])));
+        $time = date("H:i", (strtotime($post['date'])));
         
         ?>
         <div class="uk-container uk-margin-top">
@@ -100,13 +103,13 @@ if(isset($_GET['new-entry'])) {
                     <div class="uk-width-1-2@s">
                         <label for="date" class="uk-form-label">Datum auswählen:</label>
                         <div class="uk-form-controls">
-                            <input id="date" name="date" class="uk-input" type="date" value="<?php echo date("Y-m-d");?>">
+                            <input id="date" name="date" class="uk-input" type="date" value="<?php echo $date;?>">
                         </div>
                     </div>
                     <div class="uk-width-1-4@s">
                         <label for="time" class="uk-form-label">Uhrzeit auswählen:</label>
                         <div class="uk-form-controls">
-                            <input id="time" name="time" class="uk-input" type="time" value="<?php echo date("H:i");?>">
+                            <input id="time" name="time" class="uk-input" type="time" value="<?php echo $time;?>">
                         </div>
                     </div>
 

@@ -1,5 +1,7 @@
 <?php
 
+require_once('function.php');
+
 $headline = $_POST['headline'];
 $text = $_POST['text'];
 $date = $_POST['date'];
@@ -13,7 +15,7 @@ $user = get_userfromhash();
 if ($modus = 'new')
 {
     # Neu Anlegen eines Beitrags
-    require_once('function.php');
+    
 
     
 
@@ -31,15 +33,14 @@ if ($modus = 'new')
 }else if($modus = 'update')
 {
 
-    require_once('function.php');
-
     $id = $_GET['id'];
 
     $timestamp = $date . ' ' . $time . ':00';
 
     editBlogPost($id, $headline, $text, $user['id'], $timestamp, null, null);
+    echo "Update";
 
-    header('Location: ../../index.php?edit='.$id);
+    #header('Location: ../../index.php?edit='.$id);
 }
 
 ?>
