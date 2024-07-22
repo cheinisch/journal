@@ -23,15 +23,24 @@ if(!check_session())
             <?php 
             $userid = get_userfromhash();
             $posts = getAllBlogPosts($userid['id']);
+            $currentDate = '';
             
             ?>
             <?php if (empty($posts)): ?>
                 <p>Keine Blogposts gefunden.</p>
             <?php else: ?>
                 <?php foreach ($posts as $post): ?>
+                 <?php
+                    $postDate = date('d.m.Y', strtotime($post['date']));
+                    if ($postDate !== $currentDate) {
+                        $currentDate = $postDate;
+                        echo "<h3>" . htmlspecialchars($currentDate) . "</h3>";
+                    }
+                    
+                ?>
                     <article class="uk-article">
-                        <h2><?php echo htmlspecialchars($post['title']); ?></h2>
-                        <p class="uk-article-meta">
+                        <h4><?php echo htmlspecialchars($post['title']); ?></h4>
+                        <!--<p class="uk-article-meta">
                             Geschrieben am <?php echo htmlspecialchars($post['date']); ?> von <?php echo htmlspecialchars($post['author']); ?>
                             <?php if (!empty($post['location'])): ?>
                                 | Ort: <?php echo htmlspecialchars($post['location']); ?>
@@ -39,7 +48,7 @@ if(!check_session())
                             <?php if (!empty($post['tags'])): ?>
                                 | Tags: <?php echo implode(', ', array_map('htmlspecialchars', $post['tags'])); ?>
                             <?php endif; ?>
-                        </p>
+                        </p>-->
                         <div>
                             <?php echo nl2br(htmlspecialchars(substr($post['content'], 0, 200))); ?>...
                         </div>
