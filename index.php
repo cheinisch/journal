@@ -40,6 +40,8 @@ if(isset($_GET['journal'])) {
     include('system/gui/journal.php');
 }else if(isset($_GET['new-entry'])){
     include('system/gui/edit.php');
+}else if(isset($_GET['post'])){
+    include('system/gui/post.php');
 }else{
     if(!check_installation())
     {
