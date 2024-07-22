@@ -6,6 +6,9 @@ if(!check_session())
     header('location: index.php');
 }
 
+$postID = $_GET['post'];
+$post = readBlogPost($postID);
+
 ?>
 
 <?php 
@@ -19,29 +22,25 @@ if(!check_session())
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-            <?php $posts = getAllBlogPosts(1); ?>
-            <?php if (empty($posts)): ?>
-                <p>Keine Blogposts gefunden.</p>
-            <?php else: ?>
-                <?php foreach ($posts as $post): ?>
-                    <article class="uk-article">
-                        <h2><?php echo htmlspecialchars($post['title']); ?></h2>
-                        <p class="uk-article-meta">
-                            Geschrieben am <?php echo htmlspecialchars($post['date']); ?> von <?php echo htmlspecialchars($post['author']); ?>
-                            <?php if (!empty($post['location'])): ?>
-                                | Ort: <?php echo htmlspecialchars($post['location']); ?>
-                            <?php endif; ?>
-                            <?php if (!empty($post['tags'])): ?>
-                                | Tags: <?php echo implode(', ', array_map('htmlspecialchars', $post['tags'])); ?>
-                            <?php endif; ?>
-                        </p>
-                        <div>
-                            <?php echo $post['content']; ?>
-                        </div>
-                    </article>
-                    <hr class="uk-divider-icon">
-                <?php endforeach; ?>
-            <?php endif; ?>
+
+                <article class="uk-article">
+                    <h2><?php echo htmlspecialchars($post['title']); ?></h2>
+                    <p class="uk-article-meta">
+                        Geschrieben am <?php echo htmlspecialchars($post['date']); ?> von <?php echo htmlspecialchars($post['author']); ?>
+                        <?php if (!empty($post['location'])): ?>
+                            | Ort: <?php echo htmlspecialchars($post['location']); ?>
+                        <?php endif; ?>
+                        <?php if (!empty($post['tags'])): ?>
+                            | Tags: <?php echo implode(', ', array_map('htmlspecialchars', $post['tags'])); ?>
+                        <?php endif; ?>
+                    </p>
+                    <div>
+                        <?php echo $post['content']; ?>
+                    </div>
+                    <a href="index.php?edit=<?php echo $post['id']; ?>" class="uk-button uk-button-text">Bearbeiten</a>
+                </article>
+                <hr class="uk-divider-icon">
+
             </div>
 
             <!-- Sidebar mit Kalender -->

@@ -15,7 +15,7 @@ if(isset($_GET['new-entry'])) {
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-            <form class="uk-grid-small" uk-grid action="system/function/save.php?modus=new" method="post" >
+            <form class="uk-grid-small" uk-grid action="system/function/save.php?new" method="post" >
 
                     <legend class="uk-legend">Neuer Eintrag</legend>
 
@@ -92,7 +92,7 @@ if(isset($_GET['new-entry'])) {
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-            <form class="uk-grid-small" uk-grid action="system/function/save.php?modus=update&id=<?php echo $postID; ?>" method="post" >
+            <form class="uk-grid-small" uk-grid action="system/function/save.php?update=<?php echo $postID; ?>" method="post" >
 
                     <legend class="uk-legend">Update vorhanden Eintrag</legend>
 

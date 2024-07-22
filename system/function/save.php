@@ -12,7 +12,7 @@ echo "Headline: " . $headline . " Text: " . $text;
 
 $user = get_userfromhash();
 
-if ($modus = 'new')
+if (isset($_GET['new']))
 {
     # Neu Anlegen eines Beitrags
     
@@ -30,17 +30,17 @@ if ($modus = 'new')
 
     header('Location: ../../index.php?edit='.$lastID);
 
-}else if($modus = 'update')
+}else if(isset($_GET['update']))
 {
 
-    $id = $_GET['id'];
+    $id = $_GET['update'];
 
     $timestamp = $date . ' ' . $time . ':00';
 
     editBlogPost($id, $headline, $text, $user['id'], $timestamp, null, null);
     echo "Update";
 
-    #header('Location: ../../index.php?edit='.$id);
+    header('Location: ../../index.php?edit='.$id);
 }
 
 ?>

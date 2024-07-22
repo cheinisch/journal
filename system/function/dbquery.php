@@ -82,8 +82,12 @@ function createBlogPost($title, $content, $authorId, $date, $location = null, $t
   * @return array|null Array mit `id`, `title`, `content`, `author`, `date`, `location`, `tags` oder null, wenn nicht gefunden.
   */
   function readBlogPost($postId) {
+    $id = $postId;
     $db = getDatabaseConnection();
-    $sql = "SELECT * FROM posts WHERE id = :id";
+   # $sql = "SELECT * FROM posts WHERE id = :id";
+    $sql = "SELECT bp.*, u.username AS author FROM posts bp
+    JOIN users u ON bp.author_id = u.id
+    WHERE bp.id = :id";
     $stmt = $db->prepare($sql);
     $stmt->execute([':id' => $postId]);
     $post = $stmt->fetch();
