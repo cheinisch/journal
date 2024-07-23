@@ -8,10 +8,18 @@
  * @return PDO Die PDO-Instanz der Datenbankverbindung.
  */
 function getDatabaseConnection() {
-    $host = 'localhost'; // Hostname oder IP-Adresse
-    $dbname = 'journal';    // Datenbankname
-    $username = 'root';  // Benutzername
-    $password = '';      // Passwort
+
+    $config = require('storage/config.php');
+
+    $dbHost = $config['db']['host'];
+    $dbName = $config['db']['name'];
+    $dbUser = $config['db']['user'];
+    $dbPass = $config['db']['pass'];
+
+    $host = $dbHost; // Hostname oder IP-Adresse
+    $dbname = $dbName;    // Datenbankname
+    $username = $dbUser;  // Benutzername
+    $password = $dbPass;      // Passwort
 
     try {
         $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
