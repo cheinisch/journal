@@ -212,7 +212,6 @@ function getLatestGitHubRelease($repoOwner, $repoName) {
   }
 
   $data = json_decode($response, true);
-  print_r($data);
   if (isset($data['tag_name'])) {
       return $data['tag_name'];
   } else {
@@ -226,13 +225,13 @@ function get_versionfromgit()
   $repo = 'journal';
 
   try {
-    $repoOwner = 'owner';  // Ersetze 'owner' durch den Besitzer des Repositories
-    $repoName = 'repository';  // Ersetze 'repository' durch den Namen des Repositories
+    $repoOwner = 'cheinisch';
+    $repoName = 'journal';  // Ersetze 'repository' durch den Namen des Repositories
     $latestVersion = getLatestGitHubRelease($repoOwner, $repoName);
     echo "Aktuelle GitHub-Version: " . htmlspecialchars($latestVersion);
-} catch (Exception $e) {
-    echo "Fehler: " . htmlspecialchars($e->getMessage());
-}
+  } catch (Exception $e) {
+      echo "Fehler: " . htmlspecialchars($e->getMessage());
+  }
 
 
 }
