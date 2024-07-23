@@ -27,10 +27,13 @@ require 'dbquery.php';
  * Update Logistik
 */
 
- function check_update()
- {
+function check_update()
+{
+  $version_git = get_versionfromgit();
+  $version_local = get_version();
 
- }
+  return version_compare($version_git, $version_local, '>');
+}
 
  function update()
  {
@@ -180,7 +183,7 @@ function get_version()
   try {
       $versionFilePath = 'VERSION';
       $version = getVersionFromFile($versionFilePath);
-      echo "Installierte Version: " . htmlspecialchars($version);
+      return htmlspecialchars($version);
   } catch (Exception $e) {
       echo "Fehler: " . htmlspecialchars($e->getMessage());
   }
@@ -228,13 +231,14 @@ function get_versionfromgit()
     $repoOwner = 'cheinisch';
     $repoName = 'journal';  // Ersetze 'repository' durch den Namen des Repositories
     $latestVersion = getLatestGitHubRelease($repoOwner, $repoName);
-    echo "Aktuelle GitHub-Version: " . htmlspecialchars($latestVersion);
+    return htmlspecialchars($latestVersion);
   } catch (Exception $e) {
       echo "Fehler: " . htmlspecialchars($e->getMessage());
   }
 
 
 }
+
 
 
 ?>

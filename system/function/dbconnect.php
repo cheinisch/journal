@@ -9,7 +9,18 @@
  */
 function getDatabaseConnection() {
 
-    $config = require('storage/config.php');
+    $path = 'storage/config.php';
+    if(file_exists($path))
+    {
+        $config = require('storage/config.php');
+    }else{
+        $config = require('./../../storage/config.php');
+    }
+
+
+    
+
+
 
     $dbHost = $config['db']['host'];
     $dbName = $config['db']['name'];

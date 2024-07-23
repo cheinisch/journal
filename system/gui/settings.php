@@ -67,7 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
         Version: <?php echo get_version(); ?>, <?php get_versionfromgit(); ?>
-
+        <?php if(check_update()) { echo "Update verfügbar"; } ?>
+ 
             </div>
 
             <!-- Sidebar mit Kalender -->

@@ -6,7 +6,6 @@ $headline = $_POST['headline'];
 $text = $_POST['text'];
 $date = $_POST['date'];
 $time = $_POST['time'];
-$modus = $_GET['modus'];
 
 echo "Headline: " . $headline . " Text: " . $text;
 
