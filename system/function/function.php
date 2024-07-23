@@ -1,6 +1,6 @@
 <?php
 
-$cookie_name = 'diarycms';
+$cookie_name = 'jrnl';
 $cookie_value = 'username';
 
 #require 'lib/parsedown-1.7.4/Parsedown.php';
@@ -46,7 +46,7 @@ function check_update()
 
 function check_session()
 {
-    $cookie_name = 'diarycms';
+    $cookie_name = 'jrnl';
     $cookie_value = 'username';
 
     if(!isset($_COOKIE[$cookie_name])) {
@@ -57,7 +57,7 @@ function check_session()
 }
 function create_session($username)
 {
-    $cookie_name = 'diarycms';
+    $cookie_name = 'jrnl';
     $cookie_value = get_userhash($username);
 
     setcookie($cookie_name, $cookie_value, time() + (3600 * 30), "/"); // 3600 = 1 hour
@@ -65,7 +65,7 @@ function create_session($username)
 
 function get_userfromsession()
 {
-  $cookie_name = 'diarycms';
+  $cookie_name = 'jrnl';
 
   if(!isset($_COOKIE[$cookie_name])) {
     return "";
