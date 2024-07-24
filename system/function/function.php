@@ -37,6 +37,13 @@ function check_update()
 
  function update()
  {
+    // Kopiere Update Datei in Root Verzeichnis
+
+    copy('system/function/update.php', 'update.php');
+
+    // öffne Updatedatei
+
+    header("Location: update.php");
 
  }
 

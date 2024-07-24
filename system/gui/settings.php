@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="uk-width-1-2@s">
                 <?php 
                     if(check_update()) { 
-                        echo '<button onclick="location.href=update.php" class="uk-button uk-button-primary" type="button">Update verfügbar</button>';
+                        echo '<button onclick="location.href=\'index.php?update\'" class="uk-button uk-button-primary" type="button">Update verfügbar</button>';
                     }
                 ?>
             </div>
