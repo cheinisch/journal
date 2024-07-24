@@ -66,9 +66,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button class="uk-button uk-button-primary" type="submit">Einstellungen speichern</button>
             </div>
         </form>
-        Version: <?php echo get_version(); ?>, <?php get_versionfromgit(); ?>
-        <?php if(check_update()) { echo "Update verfügbar"; } ?>
- 
+        <div class="uk-grid-small" uk-grid>
+            <div class="uk-width-1-2@s">
+                Version: <?php echo get_version(); ?><br />
+                Version from Git: <?php echo get_versionfromgit(); ?>
+            </div>
+            <div class="uk-width-1-2@s">
+                <?php 
+                    if(check_update()) { 
+                        echo '<button onclick="location.href=update.php" class="uk-button uk-button-primary" type="button">Update verfügbar</button>;';
+                    }
+                ?>
+            </div>
+        </div>
             </div>
 
             <!-- Sidebar mit Kalender -->
