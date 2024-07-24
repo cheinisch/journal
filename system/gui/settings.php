@@ -67,14 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
         <div class="uk-grid-small" uk-grid>
-            <div class="uk-width-1-2@s">
+            <div class="uk-width-1-3@s">
                 Version: <?php echo get_version(); ?><br />
                 Version from Git: <?php echo get_versionfromgit(); ?>
             </div>
             <div class="uk-width-1-2@s">
                 <?php 
                     if(check_update()) { 
-                        echo '<button onclick="location.href=update.php" class="uk-button uk-button-primary" type="button">Update verfügbar</button>;';
+                        echo '<button onclick="location.href=update.php" class="uk-button uk-button-primary" type="button">Update verfügbar</button>';
                     }
                 ?>
             </div>
