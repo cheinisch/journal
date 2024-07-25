@@ -17,20 +17,20 @@ if(isset($_GET['new-entry'])) {
             <div class="uk-width-2-3@s uk-width-1-1">
             <form class="uk-grid-small" uk-grid action="system/function/save.php?new" method="post" >
 
-                    <legend class="uk-legend">Neuer Eintrag</legend>
+                    <legend class="uk-legend"><?php echo $langArray['newentry']; ?></legend>
 
                     <div class="uk-width-1-1">
                         <input id="headline" name="headline" class="uk-input" type="text" placeholder="Headline" aria-label="Input">
                     </div>
 
                     <div class="uk-width-1-2@s">
-                        <label for="date" class="uk-form-label">Datum auswählen:</label>
+                        <label for="date" class="uk-form-label"><?php echo $langArray['selectdate']; ?>:</label>
                         <div class="uk-form-controls">
                             <input id="date" name="date" class="uk-input" type="date" value="<?php echo date("Y-m-d");?>">
                         </div>
                     </div>
                     <div class="uk-width-1-4@s">
-                        <label for="time" class="uk-form-label">Uhrzeit auswählen:</label>
+                        <label for="time" class="uk-form-label"><?php echo $langArray['selecthour']; ?>:</label>
                         <div class="uk-form-controls">
                             <input id="time" name="time" class="uk-input" type="time" value="<?php echo date("H:i");?>">
                         </div>
@@ -42,7 +42,7 @@ if(isset($_GET['new-entry'])) {
                     </div>
 
                     <div class="uk-width-1-1">
-                    <button class="uk-button uk-button-primary" type="submit" value="submit">Save</button>
+                    <button class="uk-button uk-button-primary" type="submit" value="submit"><?php echo $langArray['save']; ?></button>
                     </div>
 
             </form>              
@@ -94,20 +94,20 @@ if(isset($_GET['new-entry'])) {
             <div class="uk-width-2-3@s uk-width-1-1">
             <form class="uk-grid-small" uk-grid action="system/function/save.php?update=<?php echo $postID; ?>" method="post" >
 
-                    <legend class="uk-legend">Update vorhanden Eintrag</legend>
+                    <legend class="uk-legend"><?php echo $langArray['editentry']; ?></legend>
 
                     <div class="uk-width-1-1">
                         <input id="headline" name="headline" class="uk-input" type="text" placeholder="Headline" aria-label="Input" value="<?php echo $post['title']?>">
                     </div>
 
                     <div class="uk-width-1-2@s">
-                        <label for="date" class="uk-form-label">Datum auswählen:</label>
+                        <label for="date" class="uk-form-label"><?php echo $langArray['selectdate']; ?>:</label>
                         <div class="uk-form-controls">
                             <input id="date" name="date" class="uk-input" type="date" value="<?php echo $date;?>">
                         </div>
                     </div>
                     <div class="uk-width-1-4@s">
-                        <label for="time" class="uk-form-label">Uhrzeit auswählen:</label>
+                        <label for="time" class="uk-form-label"><?php echo $langArray['selecthour']; ?>:</label>
                         <div class="uk-form-controls">
                             <input id="time" name="time" class="uk-input" type="time" value="<?php echo $time;?>">
                         </div>
@@ -119,10 +119,10 @@ if(isset($_GET['new-entry'])) {
                     </div>
 
                     <div class="uk-width-1-6@s">
-                    <button class="uk-button uk-button-primary" type="submit" value="submit">Update</button>
+                    <button class="uk-button uk-button-primary" type="submit" value="submit"><?php echo $langArray['update']; ?></button>
                     </div>
                     <div class="uk-width-1-6@s">
-                    <button onclick="location.href='index.php?post=<?php echo $postID; ?>'" class="uk-button uk-button-primary" type="button">Cancel</button>
+                    <button onclick="location.href='index.php?post=<?php echo $postID; ?>'" class="uk-button uk-button-primary" type="button"><?php echo $langArray['cancel']; ?></button>
                     </div>
 
             </form>              

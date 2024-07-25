@@ -12,4 +12,14 @@ return [
     "save" => "Save",
     "update" => "Update",
     "cancel" => "Cancel",
+    "newentry" => "New entry",
+    "editentry" => "Edit entry",
+    "selectdate" => "Select Date",
+    "selecthour" => "Select hour",
+    
+    # Post
+    "edit" => "edit",
+    "writtenon" => "Written on",
+    "writtenfrom" => "by",
+    "location" => "location",
 ];

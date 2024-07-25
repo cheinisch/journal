@@ -12,4 +12,13 @@ return [
     "save" => "Speichern",
     "update" => "Ändern",
     "cancel" => "Abbrechen",
+    "newentry" => "Neuer Eintrag",
+    "editentry" => "Eintrag bearbeiten",
+    "selectdate" => "Datum auswählen",
+    "selecthour" => "Uhrzeit auswählen",
+    # Post
+    "edit" => "bearbeiten",
+    "writtenon" => "Geschrieben am",
+    "writtenfrom" => "von",
+    "location" => "Ort",
 ];

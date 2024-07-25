@@ -26,9 +26,9 @@ $post = readBlogPost($postID);
                 <article class="uk-article">
                     <h2><?php echo htmlspecialchars($post['title']); ?></h2>
                     <p class="uk-article-meta">
-                        Geschrieben am <?php echo htmlspecialchars($post['date']); ?> von <?php echo htmlspecialchars($post['author']); ?>
+                    <?php echo $langArray['writtenon']; ?> <?php echo htmlspecialchars($post['date']); ?> <?php echo $langArray['writtenfrom']; ?> <?php echo htmlspecialchars($post['author']); ?>
                         <?php if (!empty($post['location'])): ?>
-                            | Ort: <?php echo htmlspecialchars($post['location']); ?>
+                            | <?php echo $langArray['location']; ?>: <?php echo htmlspecialchars($post['location']); ?>
                         <?php endif; ?>
                         <?php if (!empty($post['tags'])): ?>
                             | Tags: <?php echo implode(', ', array_map('htmlspecialchars', $post['tags'])); ?>
@@ -37,7 +37,7 @@ $post = readBlogPost($postID);
                     <div>
                         <?php echo nl2br(htmlspecialchars($post['content'])); ?>
                     </div>
-                    <a href="index.php?edit=<?php echo $post['id']; ?>" class="uk-button uk-button-text">Bearbeiten</a>
+                    <a href="index.php?edit=<?php echo $post['id']; ?>" class="uk-button uk-button-text"><?php echo $langArray['edit']; ?></a>
                 </article>
                 <hr class="uk-divider-icon">
 
