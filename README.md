@@ -6,7 +6,7 @@ Journal is a simple php based personal diary or log book.
 
 * Self hosted
 * Entrys are 'private'
-* language support
+* language support (de and en)
 
 ### Requirements
 
