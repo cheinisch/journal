@@ -12,5 +12,6 @@ return [
     
     # Edit
     "save" => "Speichern",
+    "update" => "Ändern",
     "cancel" => "Abbrechen",
 ];

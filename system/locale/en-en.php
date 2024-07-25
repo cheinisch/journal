@@ -8,9 +8,8 @@ return [
     "username" => "Username",
     "yourusername" => "Your Username",
     "logininto" => "Login into",
-    # New Entry
-    
-    # Edit
+    # Edit Entry
     "save" => "Save",
+    "update" => "Update",
     "cancel" => "Cancel",
 ];
