@@ -6,6 +6,11 @@
 
 require_once("system/function/function.php");
 
+/*
+ * Load Language Files
+ */
+
+ $langArray = require 'system/locale/de-de.php';
 
 /*
  * Include Login Features
