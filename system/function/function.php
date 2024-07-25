@@ -86,7 +86,7 @@ function get_userfromsession()
 
 function destroy_session()
 {
-  $cookie_name = 'diarycms';
+  $cookie_name = 'jrnl';
   setcookie($cookie_name, "", time() - (3600 * 30), "/"); // 3600 = 1 hour
 }
 
