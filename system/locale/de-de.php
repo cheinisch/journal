@@ -8,9 +8,7 @@ return [
     "username" => "Username",
     "yourusername" => "Dein Username",
     "logininto" => "Anmelden an",
-    # New Entry
-    
-    # Edit
+    # Edit Entry
     "save" => "Speichern",
     "update" => "Ändern",
     "cancel" => "Abbrechen",
