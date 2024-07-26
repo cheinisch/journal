@@ -6,11 +6,20 @@
 
 require_once("system/function/function.php");
 
+ /*
+  * Load Settings
+  */
+
+$settings = getSettings();
+
 /*
  * Load Language Files
  */
 
- $langArray = require 'system/locale/de-de.php';
+ $langArray = require 'system/locale/'.$settings['language'].'.php';
+
+
+  
 
 /*
  * Include Login Features

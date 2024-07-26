@@ -34,17 +34,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form class="uk-form-stacked" method="post">
             <div class="uk-margin">
-                <label class="uk-form-label" for="site_name">Seitenname</label>
+                <label class="uk-form-label" for="site_name"><?php echo $langArray['sitename']?></label>
                 <div class="uk-form-controls">
                     <input class="uk-input" id="site_name" name="site_name" type="text" value="<?php echo htmlspecialchars($settings['site_name']); ?>" required>
                 </div>
             </div>
 
             <div class="uk-margin">
-                <label class="uk-form-label" for="language">Sprache</label>
+                <label class="uk-form-label" for="language"><?php echo $langArray['language']?></label>
                 <div class="uk-form-controls">
                     <select class="uk-select" id="language" name="language" required>
-                        <option value="en-EN" <?php echo $settings['language'] === 'en-EN' ? 'selected' : ''; ?>>Englisch</option>
+                        <option value="en-EN" <?php echo $settings['language'] === 'en-EN' ? 'selected' : ''; ?>>English</option>
                         <option value="de-DE" <?php echo $settings['language'] === 'de-DE' ? 'selected' : ''; ?>>Deutsch</option>
                         <!-- Weitere Sprachen hier hinzufügen -->
                     </select>
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="uk-margin">
-                <label class="uk-form-label" for="template">Template</label>
+                <label class="uk-form-label" for="template"><?php echo $langArray['template']?></label>
                 <div class="uk-form-controls">
                     <select class="uk-select" id="template" name="template" required>
                         <option value="default" <?php echo $settings['template'] === 'default' ? 'selected' : ''; ?>>Default</option>
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="uk-margin">
-                <button class="uk-button uk-button-primary" type="submit">Einstellungen speichern</button>
+                <button class="uk-button uk-button-primary" type="submit"><?php echo $langArray['save']?></button>
             </div>
         </form>
         <div class="uk-grid-small" uk-grid>
