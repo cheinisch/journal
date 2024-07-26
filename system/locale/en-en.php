@@ -29,4 +29,6 @@ return [
     "language" => "Language",
     "sitename" => "Sitename",
     "template" => "Template",
+    "success" => "Settings success saved",
+    "error" => "Error saving data",
 ];

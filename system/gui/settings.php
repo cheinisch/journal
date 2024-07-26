@@ -12,9 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $template = $_POST['template'];
 
     if (updateSettings($siteName, $language, $template)) {
-        echo '<div class="uk-alert-success" uk-alert><p>Einstellungen erfolgreich aktualisiert.</p></div>';
+        $settings = getSettings();
+        /*
+        * Load Language Files
+        */
+        $langArray = require 'system/locale/'.$settings['language'].'.php';
+        echo '<div class="uk-alert-success" uk-alert><p>'.$settings['success'].'</p></div>';
     } else {
-        echo '<div class="uk-alert-danger" uk-alert><p>Fehler beim Aktualisieren der Einstellungen.</p></div>';
+        echo '<div class="uk-alert-danger" uk-alert><p>'.$settings['error'].'</p></div>';
     }
 }
 

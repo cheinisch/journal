@@ -29,4 +29,6 @@ return [
     "language" => "Sprache",
     "sitename" => "Seitenname",
     "template" => "Design",
+    "success" => "Einstellungen erfolgreich aktualisiert.",
+    "error" => "Fehler beim Aktualisieren der Einstellungen.",
 ];
