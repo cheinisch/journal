@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         * Load Language Files
         */
         $langArray = require 'system/locale/'.$settings['language'].'.php';
-        echo '<div class="uk-alert-success" uk-alert><p>'.$settings['success'].'</p></div>';
+        echo '<div class="uk-alert-success" uk-alert><p>'.$langArray['success'].'</p></div>';
     } else {
-        echo '<div class="uk-alert-danger" uk-alert><p>'.$settings['error'].'</p></div>';
+        echo '<div class="uk-alert-danger" uk-alert><p>'.$langArray['error'].'</p></div>';
     }
 }
 
