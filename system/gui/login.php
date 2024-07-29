@@ -10,7 +10,7 @@
 
     <div class="uk-container uk-flex uk-flex-center uk-flex-middle" style="height: 100vh;">
       <div class="uk-card uk-card-default uk-card-body uk-width-1-3@m">
-        <h3 class="uk-card-title uk-text-center"><?php echo $langArray['logininto']; ?> Diary</h3>
+        <h3 class="uk-card-title uk-text-center"><?php echo $langArray['logininto'] . " " . $settings['site_name']; ?></h3>
         <form class="uk-form-stacked" action="index.php?login=login" method="post">
           <input type="hidden" id="login" name="login" value="login" />
           <div class="uk-margin">
