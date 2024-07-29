@@ -39,8 +39,6 @@ if(!check_session())
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
             <?php 
-            $userid = get_userfromhash();
-            $posts = getAllBlogPosts($userid['id']);
             $currentDate = '';
             
             ?>
