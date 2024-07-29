@@ -13,3 +13,10 @@ Journal is a simple php based personal diary or log book.
 * Webspace with some space
 * PHP 8
 * MySQL Database
+
+#### Upcoming Features
+
+* Password reset
+* Language support (fr and it)
+* Add User Accounts
+* Add Location to posts
