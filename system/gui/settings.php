@@ -6,7 +6,7 @@ if(!check_session())
     header('location: index.php');
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['settings'])) {
     $siteName = $_POST['site_name'];
     $language = $_POST['language'];
     $template = $_POST['template'];
@@ -23,11 +23,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Benutzer erstellen oder aktualisieren
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user'])) {
+    // Neue Benutzerlogik hier hinzufügen
+    // Benutzer aktualisieren
+    if (isset($_POST['user']['id'])) {
+        updateUser($_POST['user']['id'], $_POST['user']['username'], $_POST['user']['email'], $_POST['user']['userrole']);
+    } else {
+        createUser($_POST['user']['username'], $_POST['user']['email'], $_POST['user']['password'], $_POST['user']['userrole']);
+    }
+}
+
+// Benutzer löschen
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
+    deleteUser($_POST['delete_user_id']);
+}
+
 ?>
 
 <?php 
 
     include('template/head.php');
+
+    $users = getAllUsers();
 
 ?>
 
@@ -94,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </li>
                     <li>
                         <!-- Users Tab -->
+                       <!-- Users Tab -->
                         <h2>Users</h2>
                         <table class="uk-table uk-table-divider">
                             <thead>
@@ -101,26 +120,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>User Role</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $users = getAllUsers(); ?>
                                 <?php foreach ($users as $user): ?>
                                 <tr>
                                     <td><?= htmlspecialchars($user['username']) ?></td>
                                     <td><?= htmlspecialchars($user['email']) ?></td>
                                     <td><?= htmlspecialchars($user['userrole']) ?></td>
                                     <td>
-                                        <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this user?');">
-                                            <input type="hidden" name="edit_user_id" value="<?= $user['id'] ?>">
-                                            <button class="uk-button uk-button" type="submit">Edit</button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                        <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline-block;">
                                             <input type="hidden" name="delete_user_id" value="<?= $user['id'] ?>">
                                             <button class="uk-button uk-button-danger" type="submit">Delete</button>
                                         </form>
+                                        <button class="uk-button uk-button-default" type="button" uk-toggle="target: #edit-user-<?= $user['id'] ?>">Edit</button>
+                                        
+                                        <!-- Edit User Modal -->
+                                        <div id="edit-user-<?= $user['id'] ?>" uk-modal>
+                                            <div class="uk-modal-dialog uk-modal-body">
+                                                <h2>Edit User</h2>
+                                                <form action="" method="post" class="uk-form-stacked">
+                                                    <input type="hidden" name="user[id]" value="<?= $user['id'] ?>">
+                                                    
+                                                    <div class="uk-margin">
+                                                        <label class="uk-form-label" for="username-<?= $user['id'] ?>">Username</label>
+                                                        <div class="uk-form-controls">
+                                                            <input class="uk-input" id="username-<?= $user['id'] ?>" type="text" name="user[username]" value="<?= htmlspecialchars($user['username']) ?>" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="uk-margin">
+                                                        <label class="uk-form-label" for="email-<?= $user['id'] ?>">Email</label>
+                                                        <div class="uk-form-controls">
+                                                            <input class="uk-input" id="email-<?= $user['id'] ?>" type="email" name="user[email]" value="<?= htmlspecialchars($user['email']) ?>" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="uk-margin">
+                                                        <label class="uk-form-label" for="userrole-<?= $user['id'] ?>">User Role</label>
+                                                        <div class="uk-form-controls">
+                                                            <select class="uk-select" id="userrole-<?= $user['id'] ?>" name="user[userrole]">
+                                                                <option value="admin" <?= $user['userrole'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+                                                                <option value="editor" <?= $user['userrole'] == 'editor' ? 'selected' : '' ?>>Editor</option>
+                                                                <!-- Weitere Rollen hier hinzufügen -->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="uk-margin">
+                                                        <button class="uk-button uk-button-primary" type="submit">Save</button>
+                                                    </div>
+                                                </form>
+                                                <button class="uk-modal-close" type="button">Cancel</button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -156,7 +210,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <select class="uk-select" id="userrole" name="user[userrole]">
                                         <option value="admin">Admin</option>
                                         <option value="editor">Editor</option>
-                                        <option value="viewer">Viewer</option>
                                         <!-- Weitere Rollen hier hinzufügen -->
                                     </select>
                                 </div>
