@@ -20,3 +20,4 @@ Journal is a simple php based personal diary or log book.
 * Language support (fr and it)
 * Add User Accounts
 * Add Location to posts
+* Add Markdown
