@@ -192,6 +192,18 @@ function getAllUsers() {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function updateUser($userId, $username, $email, $userrole) {
+    $db = getDatabaseConnection();
+    $sql = "UPDATE users SET username = :username, email = :email, userrole = :userrole WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':userrole', $userrole);
+    $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+
 
 /**
  * Prüft, ob ein Benutzer Adminrechte hat.

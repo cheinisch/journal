@@ -110,6 +110,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <td><?= htmlspecialchars($user['username']) ?></td>
                                     <td><?= htmlspecialchars($user['email']) ?></td>
                                     <td><?= htmlspecialchars($user['userrole']) ?></td>
+                                    <td>
+                                        <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                            <input type="hidden" name="edit_user_id" value="<?= $user['id'] ?>">
+                                            <button class="uk-button uk-button" type="submit">Edit</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                            <input type="hidden" name="delete_user_id" value="<?= $user['id'] ?>">
+                                            <button class="uk-button uk-button-danger" type="submit">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
