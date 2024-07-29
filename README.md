@@ -9,6 +9,7 @@ Journal is a simple php based personal diary or log book.
 * Entrys are 'private'
 * language support (de and en)
 * Multiple User Accounts
+* Markdown is possible
 
 ### Requirements
 
@@ -21,4 +22,3 @@ Journal is a simple php based personal diary or log book.
 * Password reset
 * Language support (fr and it)
 * Add Location to posts
-* Add Markdown

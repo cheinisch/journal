@@ -66,7 +66,7 @@ if(!check_session())
                             <?php endif; ?>
                         </p>-->
                         <div>
-                            <?php echo nl2br(htmlspecialchars(substr($post['content'], 0, 200))); ?>...
+                            <?php echo $Parsedown->text(nl2br(htmlspecialchars(substr($post['content'], 0, 200)))); ?>...
                         </div>
                         <a href="index.php?post=<?php echo $post['id']; ?>" class="uk-button uk-button-text">Weiterlesen</a>
                     </article>

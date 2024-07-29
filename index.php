@@ -5,6 +5,8 @@
  */
 
 require_once("system/function/function.php");
+include 'system/lib/parsedown-1.7.4/Parsedown.php';
+$Parsedown = new Parsedown();
 
  /*
   * Load Settings

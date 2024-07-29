@@ -35,7 +35,7 @@ $post = readBlogPost($postID);
                         <?php endif; ?>
                     </p>
                     <div>
-                        <?php echo nl2br(htmlspecialchars($post['content'])); ?>
+                        <?php echo $Parsedown->text(nl2br(htmlspecialchars($post['content']))); ?>
                     </div>
                     <a href="index.php?edit=<?php echo $post['id']; ?>" class="uk-button uk-button-text"><?php echo $langArray['edit']; ?></a>
                 </article>
