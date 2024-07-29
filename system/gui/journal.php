@@ -6,6 +6,24 @@ if(!check_session())
     header('location: index.php');
 }
 
+    // Parameter
+    $postsPerPage = 10;
+    $userId = get_userfromhash();
+    $currentPage = isset($_GET['journal']) ? (int)$_GET['journal'] : 1;
+
+    if($currentPage == 0)
+    {
+        $currentPage = 1;
+    }
+
+    // Gesamtanzahl der Posts
+    $totalPosts = getTotalBlogPostsByUser($userId['id']);
+
+    // Blogposts für die aktuelle Seite
+    $posts = getBlogPostsByPage($currentPage, $postsPerPage, $userId);
+
+    // Paginierung
+    $paginationHtml = getPagination($totalPosts, $currentPage, $postsPerPage);
 ?>
 
 
@@ -58,10 +76,12 @@ if(!check_session())
                 <?php endforeach; ?>
             <?php endif; ?>
                 <!-- Pagination -->
-                <ul class="uk-pagination" uk-margin>
+                <!--<ul class="uk-pagination" uk-margin>
                     <li><a href="?page=<?php echo max(1, $currentPage - 1); ?>"><span uk-pagination-previous></span></a></li>
                     <li><a href="?page=<?php echo $currentPage + 1; ?>"><span uk-pagination-next></span></a></li>
-                </ul>
+                </ul>-->
+
+                <?php echo $paginationHtml; ?>
             </div>
 
             <!-- Sidebar mit Kalender -->

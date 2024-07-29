@@ -268,6 +268,55 @@ function getLanguageFiles($directory) {
   return $files;
 }
 
+/**
+ * Funktion zur Berechnung und Anzeige der Paginierung
+ *
+ * @param int $totalPosts Gesamtanzahl der Posts
+ * @param int $currentPage Aktuelle Seite
+ * @param int $postsPerPage Anzahl der Posts pro Seite
+ * @return string HTML-Markup für die Paginierung
+ */
+function getPagination($totalPosts, $currentPage, $postsPerPage) {
+  $totalPages = ceil($totalPosts / $postsPerPage);
+  $paginationHtml = '<ul class="uk-pagination uk-flex-center">';
+
+  // Vorherige Seite
+  if ($currentPage > 1) {
+      $paginationHtml .= '<li><a href="?journal=' . ($currentPage - 1) . '"><span uk-pagination-previous></span></a></li>';
+  }
+
+  // Seitenlinks
+  for ($i = 1; $i <= $totalPages; $i++) {
+      if ($i == $currentPage) {
+          $paginationHtml .= '<li class="uk-active"><span>' . $i . '</span></li>';
+      } else {
+          $paginationHtml .= '<li><a href="?journal=' . $i . '">' . $i . '</a></li>';
+      }
+  }
+
+  // Nächste Seite
+  if ($currentPage < $totalPages) {
+      $paginationHtml .= '<li><a href="?journal=' . ($currentPage + 1) . '"><span uk-pagination-next></span></a></li>';
+  }
+
+  $paginationHtml .= '</ul>';
+
+  return $paginationHtml;
+}
+
+/**
+ * Funktion zum Abrufen der Blogposts für die aktuelle Seite
+ *
+ * @param int $page Aktuelle Seite
+ * @param int $postsPerPage Anzahl der Posts pro Seite
+ * @param int $userId ID des Benutzers, dessen Posts geladen werden sollen
+ * @return array Array der Blogposts
+ */
+function getBlogPostsByPage($page, $postsPerPage, $userId) {
+  $offset = ($page - 1) * $postsPerPage;
+  return getAllBlogPosts($userId, $postsPerPage, $offset);
+}
+
 
 
 ?>

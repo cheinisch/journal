@@ -275,5 +275,20 @@ function isUserAdmin($userID) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Gibt die Gesamtanzahl der Blogposts eines bestimmten Benutzers zurück.
+ *
+ * @param int $userId ID des Benutzers
+ * @return int Anzahl der Blogposts des Benutzers
+ */
+function getTotalBlogPostsByUser($userId) {
+    $db = getDatabaseConnection();
+    $sql = "SELECT COUNT(*) FROM posts WHERE author_id = :userId";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    return (int)$stmt->fetchColumn();
+}
+
 
 ?>
