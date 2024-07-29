@@ -3,6 +3,7 @@ declare(strict_types=1);
 return [
     # LANG
     "lang" => "Deutsch",
+    "short_lang" => "de-DE",
     # Loginpage
     "login" => "Anmelden",
     "password" => "Passwort",
@@ -31,4 +32,15 @@ return [
     "template" => "Design",
     "success" => "Einstellungen erfolgreich aktualisiert.",
     "error" => "Fehler beim Aktualisieren der Einstellungen.",
+    'settings' => 'Einstellungen',
+    'users' => 'Benutzer',
+    # SETTINGS USER
+    'username' => 'Username',
+    'email' => 'E-Mail',
+    'userrole' => 'Berechtigungen',
+    'actions' => 'Aktionen',
+    'delete' => 'Löschen',
+    'newuser' => 'Neuen User anlegen',
+    'edituser' => 'Benutzer bearbeiten',
+    'deletenotify' => "Sind sie sich wirklich sicher? Es werden auch alle Einträge gelöscht",
 ];

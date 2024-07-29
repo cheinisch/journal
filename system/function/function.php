@@ -246,6 +246,28 @@ function get_versionfromgit()
 
 }
 
+/**
+ * Liest alle Dateien aus dem Verzeichnis 'Lang' und gibt sie als Array zurück.
+ *
+ * @return array Ein Array mit den Namen der Dateien im Verzeichnis 'Lang'.
+ */
+function getLanguageFiles($directory) {
+  #$directory = __DIR__ . '/../Lang'; // Pfad zum 'Lang'-Verzeichnis
+  $files = [];
+
+  if (is_dir($directory)) {
+      $dirContents = scandir($directory);
+
+      foreach ($dirContents as $item) {
+          if ($item !== '.' && $item !== '..' && is_file($directory . '/' . $item)) {
+              $files[] = $item;
+          }
+      }
+  }
+
+  return $files;
+}
+
 
 
 ?>

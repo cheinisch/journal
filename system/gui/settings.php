@@ -6,7 +6,7 @@ if(!check_session())
     header('location: index.php');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['settings'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['site_name'])) {
     $siteName = $_POST['site_name'];
     $language = $_POST['language'];
     $template = $_POST['template'];
@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
                 <ul uk-tab>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Users</a></li>
+                    <li><a href="#"><?php echo $langArray['settings']; ?></a></li>
+                    <li><a href="#"><?php echo $langArray['users']; ?></a></li>
                 </ul>
 
                 <ul class="uk-switcher uk-margin">
@@ -74,8 +74,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
                                 <label class="uk-form-label" for="language"><?php echo $langArray['language']?></label>
                                 <div class="uk-form-controls">
                                     <select class="uk-select" id="language" name="language" required>
-                                        <option value="en-EN" <?php echo $settings['language'] === 'en-EN' ? 'selected' : ''; ?>>English</option>
-                                        <option value="de-DE" <?php echo $settings['language'] === 'de-DE' ? 'selected' : ''; ?>>Deutsch</option>
+                                        <?php 
+
+                                            $langfiles = getLanguageFiles("system/locale");
+
+                                            foreach($langfiles as $lang)
+                                            {
+                                                echo $lang;
+                                                $langOption = require 'system/locale/'.$lang;
+                                                echo $langOption['lang'];
+                                                if($settings['language'] === $langOption['short_lang'])
+                                                {
+                                                    echo '<option value='.$langOption['short_lang'].' selected>'.$langOption['lang'].'</option>';
+                                                } else {
+                                                    echo '<option value='.$langOption['short_lang'].'>'.$langOption['lang'].'</option>';
+                                                }
+                                            }
+
+                                        ?>
+                                        <!-- Weitere Sprachen hier hinzufügen -->
+                                        <!--<option value="en-EN" <?php echo $settings['language'] === 'en-EN' ? 'selected' : ''; ?>>English</option>
+                                        <option value="de-DE" <?php echo $settings['language'] === 'de-DE' ? 'selected' : ''; ?>>Deutsch</option>-->
                                         <!-- Weitere Sprachen hier hinzufügen -->
                                     </select>
                                 </div>
@@ -113,14 +132,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
                     <li>
                         <!-- Users Tab -->
                        <!-- Users Tab -->
-                        <h2>Users</h2>
+                        <h2><?php echo $langArray['users']; ?></h2>
                         <table class="uk-table uk-table-divider">
                             <thead>
                                 <tr>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>User Role</th>
-                                    <th>Actions</th>
+                                    <th><?php echo $langArray['username']; ?></th>
+                                    <th><?php echo $langArray['email']; ?></th>
+                                    <th><?php echo $langArray['userrole']; ?></th>
+                                    <th><?php echo $langArray['actions']; ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -130,35 +149,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
                                     <td><?= htmlspecialchars($user['email']) ?></td>
                                     <td><?= htmlspecialchars($user['userrole']) ?></td>
                                     <td>
-                                        <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline-block;">
+                                        <form action="" method="post" onsubmit="return confirm('<?php echo $langArray['deletenotify']; ?>');" style="display:inline-block;">
                                             <input type="hidden" name="delete_user_id" value="<?= $user['id'] ?>">
-                                            <button class="uk-button uk-button-danger" type="submit">Delete</button>
+                                            <button class="uk-button uk-button-danger" type="submit"><?php echo $langArray['delete']; ?></button>
                                         </form>
-                                        <button class="uk-button uk-button-default" type="button" uk-toggle="target: #edit-user-<?= $user['id'] ?>">Edit</button>
+                                        <button class="uk-button uk-button-default" type="button" uk-toggle="target: #edit-user-<?= $user['id'] ?>"><?php echo $langArray['edit']; ?></button>
                                         
                                         <!-- Edit User Modal -->
                                         <div id="edit-user-<?= $user['id'] ?>" uk-modal>
                                             <div class="uk-modal-dialog uk-modal-body">
-                                                <h2>Edit User</h2>
+                                                <h2><?php echo $langArray['edituser']; ?></h2>
                                                 <form action="" method="post" class="uk-form-stacked">
                                                     <input type="hidden" name="user[id]" value="<?= $user['id'] ?>">
                                                     
                                                     <div class="uk-margin">
-                                                        <label class="uk-form-label" for="username-<?= $user['id'] ?>">Username</label>
+                                                        <label class="uk-form-label" for="username-<?= $user['id'] ?>"><?php echo $langArray['username']; ?></label>
                                                         <div class="uk-form-controls">
                                                             <input class="uk-input" id="username-<?= $user['id'] ?>" type="text" name="user[username]" value="<?= htmlspecialchars($user['username']) ?>" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="uk-margin">
-                                                        <label class="uk-form-label" for="email-<?= $user['id'] ?>">Email</label>
+                                                        <label class="uk-form-label" for="email-<?= $user['id'] ?>"><?php echo $langArray['email']; ?></label>
                                                         <div class="uk-form-controls">
                                                             <input class="uk-input" id="email-<?= $user['id'] ?>" type="email" name="user[email]" value="<?= htmlspecialchars($user['email']) ?>" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="uk-margin">
-                                                        <label class="uk-form-label" for="userrole-<?= $user['id'] ?>">User Role</label>
+                                                        <label class="uk-form-label" for="userrole-<?= $user['id'] ?>"><?php echo $langArray['userrole']; ?></label>
                                                         <div class="uk-form-controls">
                                                             <select class="uk-select" id="userrole-<?= $user['id'] ?>" name="user[userrole]">
                                                                 <option value="admin" <?= $user['userrole'] == 'admin' ? 'selected' : '' ?>>Admin</option>
@@ -169,10 +188,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
                                                     </div>
 
                                                     <div class="uk-margin">
-                                                        <button class="uk-button uk-button-primary" type="submit">Save</button>
+                                                        <button class="uk-button uk-button-primary" type="submit"><?php echo $langArray['save']; ?></button>
                                                     </div>
                                                 </form>
-                                                <button class="uk-modal-close" type="button">Cancel</button>
+                                                <button class="uk-modal-close" type="button"><?php echo $langArray['cancel']; ?></button>
                                             </div>
                                         </div>
                                     </td>
@@ -181,31 +200,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
                             </tbody>
                         </table>
 
-                        <h3>Add New User</h3>
+                        <h3><?php echo $langArray['newuser']; ?></h3>
                         <form action="" method="post" class="uk-form-stacked">
                             <div class="uk-margin">
-                                <label class="uk-form-label" for="username">Username</label>
+                                <label class="uk-form-label" for="username"><?php echo $langArray['username']; ?></label>
                                 <div class="uk-form-controls">
                                     <input class="uk-input" id="username" type="text" name="user[username]" required>
                                 </div>
                             </div>
 
                             <div class="uk-margin">
-                                <label class="uk-form-label" for="email">Email</label>
+                                <label class="uk-form-label" for="email"><?php echo $langArray['email']; ?></label>
                                 <div class="uk-form-controls">
                                     <input class="uk-input" id="email" type="email" name="user[email]" required>
                                 </div>
                             </div>
 
                             <div class="uk-margin">
-                                <label class="uk-form-label" for="password">Password</label>
+                                <label class="uk-form-label" for="password"><?php echo $langArray['password']; ?></label>
                                 <div class="uk-form-controls">
                                     <input class="uk-input" id="password" type="password" name="user[password]" required>
                                 </div>
                             </div>
 
                             <div class="uk-margin">
-                                <label class="uk-form-label" for="userrole">User Role</label>
+                                <label class="uk-form-label" for="userrole"><?php echo $langArray['userrole']; ?></label>
                                 <div class="uk-form-controls">
                                     <select class="uk-select" id="userrole" name="user[userrole]">
                                         <option value="admin">Admin</option>
@@ -216,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
                             </div>
 
                             <div class="uk-margin">
-                                <button class="uk-button uk-button-primary" type="submit">Add User</button>
+                                <button class="uk-button uk-button-primary" type="submit"><?php echo $langArray['newuser']; ?></button>
                             </div>
                         </form>
                     </li>

@@ -3,6 +3,7 @@ declare(strict_types=1);
 return [
     # LANG
     "lang" => "English",
+    "short_lang" => "en-EN",
     # Loginpage
     "login" => "Login",
     "password" => "Password",
@@ -25,10 +26,22 @@ return [
     "location" => "location",
     # NAVBAR
     "write" => "Write New One",
-    # SETTINGS
+    # SETTINGS PAGE
     "language" => "Language",
     "sitename" => "Sitename",
     "template" => "Template",
     "success" => "Settings success saved",
     "error" => "Error saving data",
+    'settings' => 'Settings',
+    'users' => 'Users',
+    # SETTINGS USER
+    'username' => 'User Name',
+    'email' => 'EMAIL',
+    'userrole' => 'User Role',
+    'actions' => 'Actions',
+    'delete' => 'Delete',
+    'newuser' => 'Add new user',
+    'edituser' => 'Edit User',
+    'deletenotify' => "Are you sure you want to delete this user? All posts are also deleted",
+
 ];
