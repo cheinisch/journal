@@ -10,7 +10,7 @@ Journal is a simple php based personal diary or log book.
 
 ### Requirements
 
-* Webspace with some space
+* Webspace with some space (1 - 2 MB)
 * PHP 8
 * MySQL Database
 
