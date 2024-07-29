@@ -184,6 +184,14 @@ function getUserById($userId) {
     return $stmt->fetch();
 }
 
+function getAllUsers() {
+    $db = getDatabaseConnection();
+    $sql = "SELECT id, username, email, userrole FROM users";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 /**
  * Prüft, ob ein Benutzer Adminrechte hat.
