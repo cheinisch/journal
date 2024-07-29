@@ -1,3 +1,4 @@
+![GitHub Release](https://img.shields.io/github/v/release/cheinisch/journal?label=Latest%20Version)
 # Journal
 
 Journal is a simple php based personal diary or log book.
@@ -21,6 +22,3 @@ Journal is a simple php based personal diary or log book.
 * Language support (fr and it)
 * Add Location to posts
 * Add Markdown
-
-
-![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/cheinisch/journal/latest/total?label=Downloads) ![GitHub Release](https://img.shields.io/github/v/release/cheinisch/journal?label=Latest%20Version)
