@@ -1,7 +1,7 @@
-![GitHub Release](https://img.shields.io/github/v/release/cheinisch/journal?label=Latest%20Version)
-# Journal
+![GitHub Release](https://img.shields.io/github/v/release/cheinisch/diaryhub?label=Latest%20Version)
+# DiaryHub
 
-Journal is a simple php based personal diary or log book.
+DiaryHub is a simple php based personal diary or log book.
 
 ### Key Features
 
