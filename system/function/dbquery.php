@@ -290,5 +290,20 @@ function getTotalBlogPostsByUser($userId) {
     return (int)$stmt->fetchColumn();
 }
 
+/**
+ * Gibt die Daten aller Blogposts eines bestimmten Benutzers zurück.
+ *
+ * @param int $userId ID des Benutzers
+ * @return array Array der Blogpost-Daten
+ */
+function getBlogPostDatesByUser($userId) {
+    $db = getDatabaseConnection();
+    $sql = "SELECT date FROM posts WHERE author_id = :userId";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
+
 
 ?>

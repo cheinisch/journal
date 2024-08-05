@@ -24,6 +24,16 @@ if(!check_session())
 
     // Paginierung
     $paginationHtml = getPagination($totalPosts, $currentPage, $postsPerPage);
+
+    // Jahr und Monat
+    $year = date('Y');
+    $month = date('m');
+
+    // Blogpost-Termine abrufen
+    $highlightDates = getBlogPostDatesByUser($userId['id']);
+
+    // Kalender-Widget erstellen
+    $calendarHtml = createCalendarWidget($highlightDates, $year, $month);
 ?>
 
 
@@ -83,14 +93,54 @@ if(!check_session())
             </div>
 
             <!-- Sidebar mit Kalender -->
-            <div class="uk-width-1-3@s uk-width-1-1">
-                <div class="uk-card uk-card-default uk-card-body">
-                    <h3 class="uk-card-title">Kalender</h3>
-                    <div uk-calendar></div>
-                </div>
-            </div>
+            <?php 
+
+            include('template/sidebar.php');
+
+            ?>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendar = document.getElementById('calendar');
+            var currentMonthElement = document.getElementById('currentMonth');
+            var currentMonth = new Date(<?= $year ?>, <?= $month ?> - 1);
+
+            document.getElementById('prevMonth').addEventListener('click', function() {
+                currentMonth.setMonth(currentMonth.getMonth() - 1);
+                updateCalendar();
+            });
+
+            document.getElementById('nextMonth').addEventListener('click', function() {
+                currentMonth.setMonth(currentMonth.getMonth() + 1);
+                updateCalendar();
+            });
+
+            function updateCalendar() {
+                var year = currentMonth.getFullYear();
+                var month = currentMonth.getMonth() + 1; // Monate sind 0-basiert
+                fetch('system/fuction/api.php?year=' + year + '&month=' + month)
+                    .then(response => response.json())
+                    .then(data => {
+                        calendar.innerHTML = data.html;
+                        currentMonthElement.textContent = new Date(year, month - 1).toLocaleString('default', { month: 'long', year: 'numeric' });
+                        addEventListeners(); // Erneut Event-Listener hinzufügen
+                    });
+            }
+
+            function addEventListeners() {
+                document.getElementById('prevMonth').addEventListener('click', function() {
+                    currentMonth.setMonth(currentMonth.getMonth() - 1);
+                    updateCalendar();
+                });
+
+                document.getElementById('nextMonth').addEventListener('click', function() {
+                    currentMonth.setMonth(currentMonth.getMonth() + 1);
+                    updateCalendar();
+                });
+            }
+        });
+    </script>
 
 </body>
 

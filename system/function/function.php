@@ -317,6 +317,63 @@ function getBlogPostsByPage($page, $postsPerPage, $userId) {
   return getAllBlogPosts($userId, $postsPerPage, $offset);
 }
 
+/**
+ * Erstellt ein Kalender-Widget mit hervorgehobenen Tagen, an denen es Blogposts gibt.
+ *
+ * @param array $highlightDates Array der hervorgehobenen Daten
+ * @param int $year Jahr des Kalenders
+ * @param int $month Monat des Kalenders
+ * @return string HTML-Markup des Kalenders
+ */
+function createCalendarWidget($highlightDates, $year, $month) {
+  // Tage des Monats
+  $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+  // Erster Tag des Monats
+  $firstDayOfMonth = date('N', strtotime("$year-$month-01"));
+
+  // HTML für den Kalender
+  $calendarHtml = '<div class="uk-flex uk-flex-between">';
+  $calendarHtml .= '<button id="prevMonth" class="uk-button uk-button-default">Vorheriger</button>';
+  $calendarHtml .= '<h3 id="currentMonth">' . date('F Y', strtotime("$year-$month-01")) . '</h3>';
+  $calendarHtml .= '<button id="nextMonth" class="uk-button uk-button-default">Nächster</button>';
+  $calendarHtml .= '</div>';
+
+  $calendarHtml .= '<table class="uk-table uk-table-divider">';
+  $calendarHtml .= '<thead><tr>';
+  $calendarHtml .= '<th>Mo</th><th>Di</th><th>Mi</th><th>Do</th><th>Fr</th><th>Sa</th><th>So</th>';
+  $calendarHtml .= '</tr></thead>';
+  $calendarHtml .= '<tbody><tr>';
+
+  // Leere Zellen vor dem ersten Tag des Monats
+  for ($i = 1; $i < $firstDayOfMonth; $i++) {
+      $calendarHtml .= '<td></td>';
+  }
+
+  // Zellen für jeden Tag des Monats
+  for ($day = 1; $day <= $daysInMonth; $day++) {
+      $date = sprintf('%04d-%02d-%02d', $year, $month, $day);
+      $highlightClass = in_array($date, $highlightDates) ? 'uk-background-primary uk-light' : '';
+      $calendarHtml .= "<td class='$highlightClass'>$day</td>";
+
+      // Neue Woche beginnen
+      if (($firstDayOfMonth + $day - 1) % 7 == 0) {
+          $calendarHtml .= '</tr><tr>';
+      }
+  }
+
+  // Leere Zellen nach dem letzten Tag des Monats
+  $remainingDays = (7 - (($firstDayOfMonth + $daysInMonth - 1) % 7)) % 7;
+  for ($i = 0; $i < $remainingDays; $i++) {
+      $calendarHtml .= '<td></td>';
+  }
+
+  $calendarHtml .= '</tr></tbody></table>';
+
+  return $calendarHtml;
+}
+
+
 
 
 ?>
