@@ -57,11 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     site_name VARCHAR(255) NOT NULL DEFAULT 'New Site',
                     language VARCHAR(10) NOT NULL DEFAULT 'en-EN',
-                    template VARCHAR(255) NOT NULL DEFAULT 'default'
+                    template VARCHAR(255) NOT NULL DEFAULT 'default',
+                    dbversion INT DEFAULT 1,
+                    update ENUM('stable', 'dev') DEFAULT 'stable'
                 );
 
-                INSERT INTO settings (site_name, language, template) VALUES
-                    ('New Site', 'en-EN', 'default')
+                INSERT INTO settings (site_name, language, template, dbversion, update) VALUES
+                    ('New Site', 'en-EN', 'default', 1, 'stable')
 
             ");
 
