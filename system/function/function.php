@@ -326,6 +326,7 @@ function getBlogPostsByPage($page, $postsPerPage, $userId) {
  * @return string HTML-Markup des Kalenders
  */
 function createCalendarWidget($highlightDates, $year, $month) {
+
   // Tage des Monats
   $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
@@ -334,9 +335,7 @@ function createCalendarWidget($highlightDates, $year, $month) {
 
   // HTML für den Kalender
   $calendarHtml = '<div class="uk-flex uk-flex-between">';
-  $calendarHtml .= '<button id="prevMonth" class="uk-button uk-button-default">Vorheriger</button>';
   $calendarHtml .= '<h3 id="currentMonth">' . date('F Y', strtotime("$year-$month-01")) . '</h3>';
-  $calendarHtml .= '<button id="nextMonth" class="uk-button uk-button-default">Nächster</button>';
   $calendarHtml .= '</div>';
 
   $calendarHtml .= '<table class="uk-table uk-table-divider">';
@@ -344,6 +343,7 @@ function createCalendarWidget($highlightDates, $year, $month) {
   $calendarHtml .= '<th>Mo</th><th>Di</th><th>Mi</th><th>Do</th><th>Fr</th><th>Sa</th><th>So</th>';
   $calendarHtml .= '</tr></thead>';
   $calendarHtml .= '<tbody><tr>';
+  
 
   // Leere Zellen vor dem ersten Tag des Monats
   for ($i = 1; $i < $firstDayOfMonth; $i++) {
@@ -369,6 +369,8 @@ function createCalendarWidget($highlightDates, $year, $month) {
   }
 
   $calendarHtml .= '</tr></tbody></table>';
+  $calendarHtml .= '<button id="prevMonth" class="uk-button uk-button-default nav-button">&lt;&lt; prev</button>';
+  $calendarHtml .= '<button id="nextMonth" class="uk-button uk-button-default nav-button">next &gt;&gt;</button>';
 
   return $calendarHtml;
 }

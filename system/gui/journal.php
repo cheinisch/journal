@@ -100,12 +100,7 @@ if(!check_session())
             ?>
         </div>
     </div>
-    <!-- <?php
 
-$actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
-
-echo $actual_link;
-?>-->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendar = document.getElementById('calendar');
@@ -125,7 +120,7 @@ echo $actual_link;
             function updateCalendar() {
                 var year = currentMonth.getFullYear();
                 var month = currentMonth.getMonth() + 1; // Monate sind 0-basiert
-                fetch('system/fuction/api.php?year=' + year + '&month=' + month)
+                fetch('api.php?year=' + year + '&month=' + month)
                     .then(response => response.json())
                     .then(data => {
                         calendar.innerHTML = data.html;

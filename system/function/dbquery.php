@@ -305,7 +305,7 @@ function getTotalBlogPostsByUser($userId) {
  */
 function getBlogPostDatesByUser($userId) {
     $db = getDatabaseConnection();
-    $sql = "SELECT date FROM posts WHERE author_id = :userId";
+    $sql = "SELECT DATE(date) as date FROM posts WHERE author_id = :userId";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();

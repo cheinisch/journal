@@ -1,5 +1,5 @@
 <?php
-require 'functions.php';
+require 'system/function/function.php';
 
 // Parameter aus der URL
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
