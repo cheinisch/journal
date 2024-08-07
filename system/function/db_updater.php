@@ -32,8 +32,6 @@ function update_db_v1()
     $dbname = $dbName;    // Datenbankname
     $username = $dbUser;  // Benutzername
     $password = $dbPass;      // Passwort
-
-    if ($dbHost && $dbName && $dbUser && $username && $email && $password) {
         // Datenbankverbindung testen und Tabellen erstellen
         try {
             $dsn = "mysql:host=$dbHost;dbname=$dbName;charset=utf8";
@@ -53,7 +51,6 @@ function update_db_v1()
         }catch (PDOException $e){
             
         }
-    }
 
 }
 
