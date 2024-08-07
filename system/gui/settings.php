@@ -100,16 +100,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
                                 </div>
                             </div>
 
-                            <!--<div class="uk-margin">
+                            <div class="uk-margin">
                                 <label class="uk-form-label" for="template"><?php echo $langArray['template']?></label>
                                 <div class="uk-form-controls">
                                     <select class="uk-select" id="template" name="template" required>
-                                        <option value="default" <?php echo $settings['template'] === 'default' ? 'selected' : ''; ?>>Default</option>
-                                        <option value="custom-template" <?php echo $settings['template'] === 'custom-template' ? 'selected' : ''; ?>>Custom Template</option>
+                                        <option value="default" <?php echo $settings['template'] === 'default' ? 'selected' : ''; ?>>Light</option>
+                                        <option value="dark" <?php echo $settings['template'] === 'dark' ? 'selected' : ''; ?>>Dark</option>
                                         
                                     </select>
                                 </div>
-                            </div>-->
+                            </div>
 
                             <div class="uk-margin">
                                 <button class="uk-button uk-button-primary" type="submit"><?php echo $langArray['save']?></button>
