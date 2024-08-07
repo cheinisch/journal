@@ -2,9 +2,14 @@
 
 # Updatefile for the database
 
+db_update();
+
+
 function db_update()
 {
-
+    update_db_v1();
+    echo "Update erfolgreich!";
+    header("Location: ./../../index.php?settings");
 }
 
 function check_current_db_version()
@@ -15,6 +20,19 @@ function check_current_db_version()
 
 function update_db_v1()
 {
+
+    $config = require('./../../storage/config.php');
+
+    $dbHost = $config['db']['host'];
+    $dbName = $config['db']['name'];
+    $dbUser = $config['db']['user'];
+    $dbPass = $config['db']['pass'];
+
+    $host = $dbHost; // Hostname oder IP-Adresse
+    $dbname = $dbName;    // Datenbankname
+    $username = $dbUser;  // Benutzername
+    $password = $dbPass;      // Passwort
+
     if ($dbHost && $dbName && $dbUser && $username && $email && $password) {
         // Datenbankverbindung testen und Tabellen erstellen
         try {
