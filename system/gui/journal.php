@@ -100,6 +100,12 @@ if(!check_session())
             ?>
         </div>
     </div>
+    <!-- <?php
+
+$actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
+
+echo $actual_link;
+?>-->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendar = document.getElementById('calendar');
