@@ -155,7 +155,7 @@ function updateFromGitHub($repoOwner, $repoName) {
 
     include("system/function/db_updater.php");
 
-    #header("Location: /system/function/db_updater.php");
+    header("Location: /system/function/db_updater.php");
 }
 
 ?>
