@@ -153,6 +153,8 @@ function updateFromGitHub($repoOwner, $repoName) {
     // 6. Temporäre ZIP-Datei löschen
     unlink($zipFile);
 
+    include("system/function/db_updater.php");
+
     header("Location: /system/function/db_updater.php");
 }
 
