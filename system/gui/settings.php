@@ -10,8 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['site_name'])) {
     $siteName = $_POST['site_name'];
     $language = $_POST['language'];
     $template = $_POST['template'];
+    $release = $_POST['update'];
+    $dbversion = 1;
 
-    if (updateSettings($siteName, $language, $template)) {
+
+    if (updateSettings($siteName, $language, $template, $dbversion, $release)) {
         $settings = getSettings();
         /*
         * Load Language Files
@@ -110,6 +113,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
                                     </select>
                                 </div>
                             </div>
+                            <div class="uk-margin">
+                                <label class="uk-form-label" for="update"><?php echo $langArray['stable_dev']?></label>
+                                <div class="uk-form-controls">
+                                    <select class="uk-select" id="update" name="update" required>
+                                        <option value="stable" <?php echo $settings['release'] === 'stable' ? 'selected' : ''; ?>>Stable</option>
+                                        <option value="dev" <?php echo $settings['release'] === 'dev' ? 'selected' : ''; ?>>Development</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            
 
                             <div class="uk-margin">
                                 <button class="uk-button uk-button-primary" type="submit"><?php echo $langArray['save']?></button>

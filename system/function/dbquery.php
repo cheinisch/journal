@@ -252,28 +252,30 @@ function isUserAdmin($userID) {
   }
 
 
-function updateSettings($siteName, $language, $template, $dbversion, $update) {
+function updateSettings($siteName, $language, $template, $dbversion, $release) {
     $db = getDatabaseConnection();
     $sql = "UPDATE settings SET 
                 site_name = :site_name, 
                 language = :language, 
-                template = :template, 
-                dbversion = :dbversion, 
-                `update` = :update
+                template = :template,
+                dbversion = :dbversion,
+                `release` = :release
             WHERE id = 1";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':site_name', $siteName);
     $stmt->bindParam(':language', $language);
     $stmt->bindParam(':template', $template);
     $stmt->bindParam(':dbversion', $dbversion, PDO::PARAM_INT);
-    $stmt->bindParam(':update', $update);
+    $stmt->bindParam(':release', $release);
     return $stmt->execute();
 }
+
+
 
   function getSettings() {
     $db = getDatabaseConnection();
 
-    $sql = "SELECT site_name, language, template FROM settings WHERE id = 1";
+    $sql = "SELECT * FROM settings WHERE id = 1";
     $stmt = $db->prepare($sql);
     $stmt->execute();
 

@@ -34,6 +34,7 @@ return [
     "error" => "Error saving data",
     'settings' => 'Settings',
     'users' => 'Users',
+    'stable_dev' => 'Stable / Development Updates',
     # SETTINGS USER
     'username' => 'User Name',
     'email' => 'EMAIL',

@@ -45,7 +45,7 @@ function update_db_v1()
             $pdo->exec("
                 ALTER TABLE `settings`
                 ADD COLUMN `dbversion` INT DEFAULT 1,
-                ADD COLUMN `update` ENUM('stable', 'dev') DEFAULT 'stable';
+                ADD COLUMN `release` ENUM('stable', 'dev') DEFAULT 'stable';
 
             ");
         }catch (PDOException $e){

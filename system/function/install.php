@@ -59,10 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     language VARCHAR(10) NOT NULL DEFAULT 'en-EN',
                     template VARCHAR(255) NOT NULL DEFAULT 'default',
                     dbversion INT DEFAULT 1,
-                    update ENUM('stable', 'dev') DEFAULT 'stable'
+                    release ENUM('stable', 'dev') DEFAULT 'stable'
                 );
 
-                INSERT INTO settings (site_name, language, template, dbversion, update) VALUES
+                INSERT INTO settings (site_name, language, template, dbversion, release) VALUES
                     ('New Site', 'en-EN', 'default', 1, 'stable')
 
             ");

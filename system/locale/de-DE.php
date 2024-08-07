@@ -34,6 +34,7 @@ return [
     "error" => "Fehler beim Aktualisieren der Einstellungen.",
     'settings' => 'Einstellungen',
     'users' => 'Benutzer',
+    'stable_dev' => 'Stable / Development Updates',
     # SETTINGS USER
     'username' => 'Username',
     'email' => 'E-Mail',
