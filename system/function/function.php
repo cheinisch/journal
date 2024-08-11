@@ -206,27 +206,39 @@ function getVersionFromFile($filePath) {
   }
 }
 
-function getLatestGitHubRelease($repoOwner, $repoName) {
-  $url = "https://api.github.com/repos/$repoOwner/$repoName/releases/latest";
-  
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, $url);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // GitHub API erfordert einen User-Agent Header
+function getLatestGitHubRelease($owner, $repo, $prerelease = false)
+{
+    $url = $prerelease
+        ? "https://api.github.com/repos/$owner/$repo/releases"
+        : "https://api.github.com/repos/$owner/$repo/releases/latest";
 
-  $response = curl_exec($ch);
-  curl_close($ch);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+    $response = curl_exec($ch);
+    curl_close($ch);
 
-  if ($response === false) {
-      throw new Exception("Fehler beim Abrufen der GitHub-Version.");
-  }
+    if ($response === false) {
+        throw new Exception("Fehler beim Abrufen der GitHub-Version.");
+    }
 
-  $data = json_decode($response, true);
-  if (isset($data['tag_name'])) {
-      return $data['tag_name'];
-  } else {
-      throw new Exception("Version konnte nicht abgerufen werden.");
-  }
+    $data = json_decode($response, true);
+
+    if ($prerelease) {
+        // Das erste Pre-Release suchen
+        foreach ($data as $release) {
+            if ($release['prerelease']) {
+                return $release['tag_name'];
+            }
+        }
+        throw new Exception("Kein Pre-Release gefunden.");
+    } else {
+        if (!isset($data['tag_name'])) {
+            throw new Exception("Die Versionsnummer konnte nicht abgerufen werden.");
+        }
+        return $data['tag_name'];
+    }
 }
 
 function get_versionfromgit()
@@ -237,7 +249,8 @@ function get_versionfromgit()
   try {
     $repoOwner = 'cheinisch';
     $repoName = 'journal';  // Ersetze 'repository' durch den Namen des Repositories
-    $latestVersion = getLatestGitHubRelease($repoOwner, $repoName);
+    $prerelease = isDevRelease();
+    $latestVersion = getLatestGitHubRelease($repoOwner, $repoName, $prerelease);
     return htmlspecialchars($latestVersion);
   } catch (Exception $e) {
       echo "Fehler: " . htmlspecialchars($e->getMessage());

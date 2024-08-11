@@ -14,7 +14,7 @@ function load_update()
     try {
         $repoOwner = 'cheinisch'; // Ersetze 'owner' durch den Besitzer des Repositories
         $repoName = 'journal'; // Ersetze 'repository' durch den Namen des Repositories
-        updateFromGitHub($repoOwner, $repoName);
+        updateFromGitHub($repoOwner, $repoName, false);
     } catch (Exception $e) {
         echo "Fehler: " . htmlspecialchars($e->getMessage());
     }
@@ -27,7 +27,7 @@ function load_update()
  * @param string $repoName Der Name des GitHub-Repositories.
  * @throws Exception Wenn ein Fehler auftritt.
  */
-function updateFromGitHub($repoOwner, $repoName) {
+function updateFromGitHub($repoOwner, $repoName, $prerelease = false) {
 
     // 1. Konfig auslesen
 
@@ -39,7 +39,10 @@ function updateFromGitHub($repoOwner, $repoName) {
 
 
     // 2. Neueste Release-URL von GitHub abrufen
-    $url = "https://api.github.com/repos/$repoOwner/$repoName/releases/latest";
+    $url = $prerelease
+        ? "https://api.github.com/repos/$repoOwner/$repoName/releases"
+        : "https://api.github.com/repos/$repoOwner/$repoName/releases/latest";
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

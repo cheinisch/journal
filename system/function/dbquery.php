@@ -282,6 +282,18 @@ function updateSettings($siteName, $language, $template, $dbversion, $release) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function isDevRelease()
+{
+    $db = getDatabaseConnection(); // Hier wird die Funktion zum Herstellen der Datenbankverbindung verwendet
+
+     $sql = "SELECT `release` FROM settings WHERE id =1";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $releaseType = $stmt->fetchColumn();
+
+    return ($releaseType === 'dev');
+}
+
 /**
  * Gibt die Gesamtanzahl der Blogposts eines bestimmten Benutzers zurück.
  *
