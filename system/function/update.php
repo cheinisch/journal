@@ -11,10 +11,15 @@ load_update();
 
 function load_update()
 {
+
+    require_once('dbquery.php');
+
+    $prerelease = isDevRelease();
+
     try {
         $repoOwner = 'cheinisch'; // Ersetze 'owner' durch den Besitzer des Repositories
         $repoName = 'journal'; // Ersetze 'repository' durch den Namen des Repositories
-        updateFromGitHub($repoOwner, $repoName, false);
+        updateFromGitHub($repoOwner, $repoName, $prerelease);
     } catch (Exception $e) {
         echo "Fehler: " . htmlspecialchars($e->getMessage());
     }
