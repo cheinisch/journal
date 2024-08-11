@@ -24,11 +24,11 @@
             </div>
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav">
-                    <li><a>Hello <?php echo get_currentusername(); ?></a></li>
+                    <!--<li><a>Hello <?php echo get_currentusername(); ?></a></li>-->
                     
                     <li><a href="index.php?new-entry"><?php echo $langArray['write']?></a></li>
                     
-                    <!--<li><a href="index.php?user" class="uk-icon-link" uk-icon="user"></a></li>-->
+                    <li><a href="index.php?user" class="uk-icon-link" uk-icon="user"></a></li>
                     <?php if(enable_admin()) { echo '<li><a href="index.php?settings" class="uk-icon-link" uk-icon="settings"></a></li>'; } ?>
                     <li><a href="index.php?login=logout" class="uk-icon-link" uk-icon="sign-out"></a></li>
                 </ul>

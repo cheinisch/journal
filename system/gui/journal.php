@@ -46,6 +46,7 @@ if(!check_session())
     <!-- Zweispaltiges Layout -->
     <div class="uk-container uk-margin-top">
         <div uk-grid>
+            <h3>Hello <?php echo get_currentusername(); ?></h3>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
             <?php 

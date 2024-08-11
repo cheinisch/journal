@@ -14,7 +14,7 @@ return [
     # Edit Entry
     "save" => "Speichern",
     "update" => "Ändern",
-    "cancel" => "Abbrechen",
+    "cancel" => "Abbrechen / Zurück",
     "newentry" => "Neuer Eintrag",
     "editentry" => "Eintrag bearbeiten",
     "selectdate" => "Datum auswählen",
