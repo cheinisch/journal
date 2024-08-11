@@ -12,7 +12,7 @@ load_update();
 function load_update()
 {
 
-    require_once('dbquery.php');
+    require_once('system/function/dbquery.php');
 
     $prerelease = isDevRelease();
 
