@@ -48,21 +48,37 @@ function updateFromGitHub($repoOwner, $repoName, $prerelease = false) {
         ? "https://api.github.com/repos/$repoOwner/$repoName/releases"
         : "https://api.github.com/repos/$repoOwner/$repoName/releases/latest";
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // GitHub API erfordert einen User-Agent Header
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-    if ($response === false) {
-        throw new Exception("Fehler beim Abrufen der GitHub-Version.");
-    }
-
-    $data = json_decode($response, true);
-    if (!isset($data['zipball_url'])) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+        $response = curl_exec($ch);
+        curl_close($ch);
+    
+        if ($response === false) {
+            throw new Exception("Fehler beim Abrufen der GitHub-Version.");
+        }
+        echo $response; // Ausgabe der API-Antwort zu Debugging-Zwecken
+    
+        $data = json_decode($response, true);
+    
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Exception("Fehler beim Verarbeiten der GitHub-Antwort: " . json_last_error_msg());
+        }
+    
+        if (!is_array($data)) {
+            throw new Exception("Unerwartete Antwort von GitHub.");
+        }
+    
+        foreach ($data as $release) {
+            if ($prerelease && $release['prerelease']) {
+                return $release['zipball_url'];
+            } elseif (!$prerelease && !$release['prerelease']) {
+                return $release['zipball_url'];
+            }
+        }
+    
         throw new Exception("Die ZIP-URL konnte nicht abgerufen werden.");
-    }
 
     $zipUrl = $data['zipball_url'];
     echo $zipUrl;
