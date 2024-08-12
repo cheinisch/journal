@@ -250,7 +250,7 @@ function get_versionfromgit()
     $repoOwner = 'cheinisch';
     $repoName = 'journal';  // Ersetze 'repository' durch den Namen des Repositories
     $prerelease = isDevRelease();
-    $latestVersion = getLatestGitHubRelease($repoOwner, $repoName, $prerelease);
+    $latestVersion = getLatestGitHubRelease($repoOwner, $repoName, true);
     return htmlspecialchars($latestVersion);
   } catch (Exception $e) {
       echo "Fehler: " . htmlspecialchars($e->getMessage());
