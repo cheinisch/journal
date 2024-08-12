@@ -206,40 +206,45 @@ function getVersionFromFile($filePath) {
   }
 }
 
-function getLatestGitHubRelease($owner, $repo, $prerelease = false)
-{
-    $url = $prerelease
-        ? "https://api.github.com/repos/$owner/$repo/releases"
-        : "https://api.github.com/repos/$owner/$repo/releases/latest";
+function getLatestGitHubRelease($owner, $repo, $prerelease = false) {
+  $url = "https://api.github.com/repos/$owner/$repo/releases";
+  $token = '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'; // Ersetzen Sie dies durch Ihr echtes Token
+  
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+  curl_setopt($ch, CURLOPT_HTTPHEADER, [
+      "Authorization: token $token"
+  ]);
+  $response = curl_exec($ch);
+  curl_close($ch);
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
-    $response = curl_exec($ch);
-    curl_close($ch);
+  if ($response === false) {
+      throw new Exception("Fehler beim Abrufen der GitHub-Version.");
+  }
 
-    if ($response === false) {
-        throw new Exception("Fehler beim Abrufen der GitHub-Version.");
-    }
+  $data = json_decode($response, true);
 
-    $data = json_decode($response, true);
+  if (json_last_error() !== JSON_ERROR_NONE) {
+      throw new Exception("Fehler beim Verarbeiten der GitHub-Antwort: " . json_last_error_msg());
+  }
 
-    if ($prerelease) {
-        // Das erste Pre-Release suchen
-        foreach ($data as $release) {
-            if ($release['prerelease']) {
-                return $release['tag_name'];
-            }
-        }
-        throw new Exception("Kein Pre-Release gefunden.");
-    } else {
-        if (!isset($data['tag_name'])) {
-            throw new Exception("Die Versionsnummer konnte nicht abgerufen werden.");
-        }
-        return $data['tag_name'];
-    }
+  if (!is_array($data)) {
+      throw new Exception("Unerwartete Antwort von GitHub.");
+  }
+
+  foreach ($data as $release) {
+      if ($prerelease && $release['prerelease']) {
+          return $release['tag_name'];
+      } elseif (!$prerelease && !$release['prerelease']) {
+          return $release['tag_name'];
+      }
+  }
+
+  throw new Exception("Die Versionsnummer konnte nicht abgerufen werden.");
 }
+
 
 function get_versionfromgit()
 {
@@ -250,7 +255,7 @@ function get_versionfromgit()
     $repoOwner = 'cheinisch';
     $repoName = 'journal';  // Ersetze 'repository' durch den Namen des Repositories
     $prerelease = isDevRelease();
-    $latestVersion = getLatestGitHubRelease($repoOwner, $repoName, true);
+    $latestVersion = getLatestGitHubRelease($repoOwner, $repoName, $prerelease);
     return htmlspecialchars($latestVersion);
   } catch (Exception $e) {
       echo "Fehler: " . htmlspecialchars($e->getMessage());

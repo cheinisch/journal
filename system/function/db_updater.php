@@ -9,7 +9,7 @@ function db_update()
 {
     update_db_v1();
     echo "Update erfolgreich!";
-    header("Location: index.php?settings");
+    #header("Location: index.php?settings");
 }
 
 function check_current_db_version()

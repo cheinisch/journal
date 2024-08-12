@@ -47,13 +47,14 @@ function updateFromGitHub($repoOwner, $repoName, $prerelease = false) {
 
 
     // 2. Neueste Release-URL von GitHub abrufen
-    $url = $prerelease
-        ? "https://api.github.com/repos/$repoOwner/$repoName/releases"
-        : "https://api.github.com/repos/$repoOwner/$repoName/releases/latest";
+    $url = "https://api.github.com/repos/$repoOwner/$repoName/releases";
+    $token = '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';  // Ersetzen Sie dies durch Ihren GitHub-Personal-Access-Token
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // GitHub API erfordert einen User-Agent Header
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: token $token"));
     $response = curl_exec($ch);
     curl_close($ch);
 
@@ -62,6 +63,18 @@ function updateFromGitHub($repoOwner, $repoName, $prerelease = false) {
     }
 
     $data = json_decode($response, true);
+
+    if ($prerelease) {
+        foreach ($data as $release) {
+            if ($release['prerelease']) {
+                $data = $release;
+                break;
+            }
+        }
+    } else {
+        $data = $data[0];
+    }
+
     if (!isset($data['zipball_url'])) {
         throw new Exception("Die ZIP-URL konnte nicht abgerufen werden.");
     }
