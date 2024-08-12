@@ -25,7 +25,7 @@ return [
     "writtenfrom" => "von",
     "location" => "Ort",
     # NAVBAR
-    "write" => "Schreibe neuen Eintrag",
+    "write" => "Neuer Eintrag",
     # SETTINGS
     "language" => "Sprache",
     "sitename" => "Seitenname",
