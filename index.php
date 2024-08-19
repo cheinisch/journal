@@ -66,6 +66,8 @@ if(isset($_GET['journal'])) {
     include('system/gui/edit.php');
 }else if(isset($_GET['settings'])){
     include('system/gui/settings.php');
+}else if(isset($_GET['user'])){
+    include('system/gui/settings-user.php');
 }else if(isset($_GET['update'])){
     update();
 }else{
