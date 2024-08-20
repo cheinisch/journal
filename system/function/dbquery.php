@@ -358,4 +358,16 @@ function updateUserSettings($userId, $name, $email, $password, $oldPassword) {
     }
 }
 
+function getUserData($userId)
+{
+    $db = getDatabaseConnection();
+    $stmt = $db->prepare("SELECT name, email FROM users WHERE id = :userId");
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC); 
+
+    return $user;
+    
+}
+
 ?>
