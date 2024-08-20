@@ -7,9 +7,13 @@ db_update();
 
 function db_update()
 {
-    update_db_v1();
+
+    $config = require('storage/config.php');
+
+    update_db_v1($config);
+    ensureUserTableIsUpToDate($config);
     echo "Update erfolgreich!";
-    #header("Location: index.php?settings");
+    header("Location: index.php?settings");
 }
 
 function check_current_db_version()
@@ -18,10 +22,10 @@ function check_current_db_version()
 }
 
 
-function update_db_v1()
+function update_db_v1($config)
 {
 
-    $config = require('storage/config.php');
+    
 
     $dbHost = $config['db']['host'];
     $dbName = $config['db']['name'];
@@ -53,5 +57,54 @@ function update_db_v1()
         }
 
 }
+
+// Aufruf der Funktion zur Überprüfung und Anpassung der Tabelle
+function ensureUserTableIsUpToDate($config)
+{
+
+    $dbHost = $config['db']['host'];
+    $dbName = $config['db']['name'];
+    $dbUser = $config['db']['user'];
+    $dbPass = $config['db']['pass'];
+
+    try {
+        // Datenbankverbindung herstellen
+        $dsn = "mysql:host=$dbHost;dbname=$dbName;charset=utf8mb4";
+        $db = new PDO($dsn, $dbUser, $dbPass);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Prüfe, ob die Spalte `reset_token` in der Tabelle `users` existiert
+        $stmt = $db->prepare("SHOW COLUMNS FROM users LIKE 'reset_token'");
+        $stmt->execute();
+        $columnExists = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$columnExists) {
+            // Spalte `reset_token` existiert nicht, also wird die Tabelle aktualisiert
+            $sql = "ALTER TABLE users ADD COLUMN reset_token VARCHAR(255) NULL";
+            $db->exec($sql);
+            echo "Spalte `reset_token` hinzugefügt.\n";
+        }
+
+        // Prüfe, ob die Spalte `reset_token_expiry` in der Tabelle `users` existiert
+        $stmt = $db->prepare("SHOW COLUMNS FROM users LIKE 'reset_token_expiry'");
+        $stmt->execute();
+        $columnExists = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$columnExists) {
+            // Spalte `reset_token_expiry` existiert nicht, also wird die Tabelle aktualisiert
+            $sql = "ALTER TABLE users ADD COLUMN reset_token_expiry DATETIME NULL";
+            $db->exec($sql);
+            echo "Spalte `reset_token_expiry` hinzugefügt.\n";
+        }
+
+        // Optional: Eine Meldung ausgeben, wenn die Tabelle bereits aktuell ist
+        if ($columnExists) {
+            echo "Die Tabelle `users` ist bereits aktuell.\n";
+        }
+    } catch (PDOException $e) {
+        echo "Datenbankfehler: " . $e->getMessage();
+    }
+}
+
 
 ?>

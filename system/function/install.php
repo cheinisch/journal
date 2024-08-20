@@ -39,7 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     username VARCHAR(255) NOT NULL UNIQUE,
                     email VARCHAR(255) NOT NULL UNIQUE,
                     password VARCHAR(255) NOT NULL,
-                    userrole ENUM('admin', 'editor', 'user') NOT NULL
+                    userrole ENUM('admin', 'editor', 'user') NOT NULL,
+                    reset_token VARCHAR(255) NULL,
+                    reset_token_expiry DATETIME NULL
                 );
                 
                 CREATE TABLE IF NOT EXISTS posts (
