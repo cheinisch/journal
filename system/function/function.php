@@ -393,7 +393,27 @@ function createCalendarWidget($highlightDates, $year, $month) {
   return $calendarHtml;
 }
 
+// Funktion, um die Beiträge des Benutzers als XML zu exportieren
+function exportPostsAsXML($userId) {
+  $db = getDatabaseConnection();
+  $stmt = $db->prepare("SELECT * FROM posts WHERE author_id = :userId");
+  $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+  $stmt->execute();
+  $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+  $xml = new SimpleXMLElement('<posts/>');
+
+  foreach ($posts as $post) {
+      $postElement = $xml->addChild('post');
+      foreach ($post as $key => $value) {
+          $postElement->addChild($key, htmlspecialchars($value));
+      }
+  }
+
+  Header('Content-type: text/xml');
+  print($xml->asXML());
+  exit();
+}
 
 
 ?>

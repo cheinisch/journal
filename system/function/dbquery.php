@@ -324,5 +324,38 @@ function getBlogPostDatesByUser($userId) {
     return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
 
+// Funktion, um die Benutzerdaten zu aktualisieren
+function updateUserSettings($userId, $name, $email, $password, $oldPassword) {
+    $db = getDatabaseConnection();
+    
+    // Überprüfen, ob das alte Passwort korrekt ist
+    $stmt = $db->prepare("SELECT password FROM users WHERE id = :userId");
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $hashedPassword = $stmt->fetchColumn();
+
+    if (!password_verify($oldPassword, $hashedPassword)) {
+        return "Das alte Passwort ist falsch.";
+    }
+
+    // Wenn das Passwort aktualisiert werden soll, neu hashen
+    if (!empty($password)) {
+        $newHashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $db->prepare("UPDATE users SET name = :name, email = :email, password = :password WHERE id = :userId");
+        $stmt->bindParam(':password', $newHashedPassword, PDO::PARAM_STR);
+    } else {
+        $stmt = $db->prepare("UPDATE users SET name = :name, email = :email WHERE id = :userId");
+    }
+
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        return "Einstellungen erfolgreich aktualisiert.";
+    } else {
+        return "Fehler beim Aktualisieren der Einstellungen.";
+    }
+}
 
 ?>
