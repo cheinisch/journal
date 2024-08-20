@@ -20,12 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Benutzerinformationen laden
 $userIdDB = get_userfromhash();
-$userId = $userIdDB['id'];
-$db = getDatabaseConnection();
-$stmt = $db->prepare("SELECT name, email FROM users WHERE id = :userId");
-$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$user = getUserData($userIdDB['id']);
 ?>
 
 <h2>Benutzereinstellungen</h2>
