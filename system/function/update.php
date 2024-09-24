@@ -47,14 +47,14 @@ function updateFromGitHub($repoOwner, $repoName, $prerelease = false) {
 
 
     // 2. Neueste Release-URL von GitHub abrufen
-    $url = "https://api.github.com/repos/$repoOwner/$repoName/releases";
-    $token = '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';  // Ersetzen Sie dies durch Ihren GitHub-Personal-Access-Token
+    $url = $prerelease
+        ? "https://api.github.com/repos/$repoOwner/$repoName/releases" // Alle Releases abrufen
+        : "https://api.github.com/repos/$repoOwner/$repoName/releases/latest"; // Nur das neueste stable Release abrufen
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: token $token"));
     $response = curl_exec($ch);
     curl_close($ch);
 
@@ -64,15 +64,18 @@ function updateFromGitHub($repoOwner, $repoName, $prerelease = false) {
 
     $data = json_decode($response, true);
 
+    // Überprüfen, ob es sich um ein Pre-Release handelt
     if ($prerelease) {
+        if (!is_array($data)) {
+            throw new Exception("Erwartete Daten als Array, aber Antwort ist kein Array.");
+        }
+
         foreach ($data as $release) {
-            if ($release['prerelease']) {
+            if (isset($release['prerelease']) && $release['prerelease']) {
                 $data = $release;
                 break;
             }
         }
-    } else {
-        $data = $data[0];
     }
 
     if (!isset($data['zipball_url'])) {

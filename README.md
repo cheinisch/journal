@@ -1,7 +1,7 @@
 ![GitHub Release](https://img.shields.io/github/v/release/cheinisch/journal?label=Latest%20Version)
 # Jrnl
 
-Jrnl is a simple php based personal diary or log book.
+Jrnl is a simple php based personal diary or log book. This Webapplication uses UiKit 3.15.14 for the GUI.
 
 ### Key Features
 

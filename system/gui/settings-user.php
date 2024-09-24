@@ -14,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $oldPassword = $_POST['old_password'];
     
     $message = updateUserSettings($userId['id'], $name, $email, $password, $oldPassword);
+    destroy_session();
+    create_session($name);
 } elseif (isset($_GET['export']) && $_GET['export'] == 'xml') {
     exportPostsAsXML($userId['id']);
 }
@@ -23,20 +25,33 @@ $userIdDB = get_userfromhash();
 $user = getUserData($userIdDB['id']);
 ?>
 
-<h2>Benutzereinstellungen</h2>
+
+<?php 
+
+    include('template/head.php');
+
+    $users = getAllUsers();
+
+?>
+
+    <!-- Zweispaltiges Layout -->
+    <div class="uk-container uk-margin-top">
+        <div uk-grid>
+            <!-- Blogposts -->
+            <div class="uk-width-2-3@s uk-width-1-1">
+            <h2>Benutzereinstellungen</h2>
 
 <?php if (isset($message)): ?>
     <p><?php echo htmlspecialchars($message); ?></p>
 <?php endif; ?>
-
-<form method="POST" action="index.php?user">
-    <div>
+<form class="uk-form-stacked" method="POST" action="index.php?user">
+    <div class="uk-margin">
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+        <input class="uk-input" type="text" name="name" id="name" value="<?php echo htmlspecialchars($user['username']); ?>" required>
     </div>
-    <div>
+    <div class="uk-margin">
         <label for="email">E-Mail:</label>
-        <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+        <input class="uk-input" type="email" name="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
     </div>
     <div>
         <label for="old_password">Altes Passwort:</label>
@@ -57,6 +72,8 @@ $user = getUserData($userIdDB['id']);
 
 <h2>Beiträge exportieren</h2>
 <a href="index.php?user&export=xml">Beiträge als XML exportieren</a>
-
+</div>
+</div>
+</div>
 </body>
 </html>

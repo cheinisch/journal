@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user_id'])) {
                                 Version from Git: <?php echo get_versionfromgit(); ?>
                             </div>
                             <div class="uk-width-1-2@s">
-                                <?php 
+                                <?php
                                     if(check_update()) { 
                                         echo "<button onclick=\"location.href='index.php?update'\" class=\"uk-button uk-button-primary\" type=\"button\">Update verfügbar</button>";
                                     }

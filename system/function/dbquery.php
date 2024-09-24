@@ -341,10 +341,10 @@ function updateUserSettings($userId, $name, $email, $password, $oldPassword) {
     // Wenn das Passwort aktualisiert werden soll, neu hashen
     if (!empty($password)) {
         $newHashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $db->prepare("UPDATE users SET name = :name, email = :email, password = :password WHERE id = :userId");
+        $stmt = $db->prepare("UPDATE users SET username = :name, email = :email, password = :password WHERE id = :userId");
         $stmt->bindParam(':password', $newHashedPassword, PDO::PARAM_STR);
     } else {
-        $stmt = $db->prepare("UPDATE users SET name = :name, email = :email WHERE id = :userId");
+        $stmt = $db->prepare("UPDATE users SET username = :name, email = :email WHERE id = :userId");
     }
 
     $stmt->bindParam(':name', $name, PDO::PARAM_STR);
@@ -352,6 +352,7 @@ function updateUserSettings($userId, $name, $email, $password, $oldPassword) {
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
+        
         return "Einstellungen erfolgreich aktualisiert.";
     } else {
         return "Fehler beim Aktualisieren der Einstellungen.";
@@ -361,7 +362,7 @@ function updateUserSettings($userId, $name, $email, $password, $oldPassword) {
 function getUserData($userId)
 {
     $db = getDatabaseConnection();
-    $stmt = $db->prepare("SELECT name, email FROM users WHERE id = :userId");
+    $stmt = $db->prepare("SELECT username, email FROM users WHERE id = :userId");
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC); 
