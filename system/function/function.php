@@ -396,25 +396,49 @@ function createCalendarWidget($highlightDates, $year, $month) {
 
 // Funktion, um die Beiträge des Benutzers als XML zu exportieren
 function exportPostsAsXML($userId) {
+
+    // Output-Buffer bereinigen, um sicherzustellen, dass nichts vorher gesendet wird
+    if (ob_get_length()) {
+      ob_clean(); // Löscht den Output-Buffer-Inhalt
+    }
+
+  // Setze die Header für den XML-Download
+  header('Content-Type: application/xml; charset=UTF-8');
+  header('Content-Disposition: attachment; filename="posts.xml"');
+  header('Pragma: no-cache');
+  header('Expires: 0');
+
+  // Datenbankverbindung herstellen
   $db = getDatabaseConnection();
+
+  // Beiträge des Benutzers abfragen
   $stmt = $db->prepare("SELECT * FROM posts WHERE author_id = :userId");
   $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
   $stmt->execute();
   $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  $xml = new SimpleXMLElement('<posts/>');
+  // Neues SimpleXMLElement für die XML-Erstellung
+  $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><posts/>');
 
+  // Jeden Beitrag in die XML-Struktur hinzufügen
   foreach ($posts as $post) {
       $postElement = $xml->addChild('post');
       foreach ($post as $key => $value) {
-          $postElement->addChild($key, htmlspecialchars($value));
+          // Entsprechend Escape für HTML-Sonderzeichen in XML
+          $postElement->addChild($key, htmlspecialchars($value, ENT_XML1, 'UTF-8'));
       }
   }
 
-  Header('Content-type: text/xml');
-  print($xml->asXML());
+  // Ausgabe des XML-Dokuments
+  echo $xml->asXML();
+
+  // Beende das Script, um weiteren Output zu verhindern
   exit();
 }
+
+
+
+
 
 
 ?>

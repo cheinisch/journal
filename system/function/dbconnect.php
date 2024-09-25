@@ -16,12 +16,6 @@ function getDatabaseConnection() {
     }else{
         $config = require('./../../storage/config.php');
     }
-
-
-    
-
-
-
     $dbHost = $config['db']['host'];
     $dbName = $config['db']['name'];
     $dbUser = $config['db']['user'];

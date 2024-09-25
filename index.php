@@ -33,8 +33,6 @@ if(isset($_GET['login'])) {
 
     if($_GET['login'] == 'login')
     {
-        
-
         $user = $_POST['username'];
         $passwd = $_POST['password'];
 

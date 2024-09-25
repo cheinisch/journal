@@ -5,7 +5,6 @@ if(!check_session())
 {
     header('location: index.php');
 }
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userId = get_userfromhash(); // Angenommen, die Benutzer-ID wird in der Session gespeichert
     $name = $_POST['name'];
@@ -17,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     destroy_session();
     create_session($name);
 } elseif (isset($_GET['export']) && $_GET['export'] == 'xml') {
+    $userId = get_userfromhash(); // Angenommen, die Benutzer-ID wird in der Session gespeichert
     exportPostsAsXML($userId['id']);
 }
 
@@ -72,6 +72,12 @@ $user = getUserData($userIdDB['id']);
 
 <h2>Beiträge exportieren</h2>
 <a href="index.php?user&export=xml">Beiträge als XML exportieren</a>
+<h2>Beiträge importieren</h2>
+<form action="api/import.php" method="post" enctype="multipart/form-data">
+    Wählen Sie die XML-Datei zum Hochladen aus:
+    <input type="file" name="xmlFile" accept=".xml">
+    <input type="submit" value="Upload XML">
+</form>
 </div>
 </div>
 </div>
