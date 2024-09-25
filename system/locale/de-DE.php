@@ -44,4 +44,11 @@ return [
     'newuser' => 'Neuen User anlegen',
     'edituser' => 'Benutzer bearbeiten',
     'deletenotify' => "Sind sie sich wirklich sicher? Es werden auch alle Einträge gelöscht",
+    # USER SETTINGS
+    'user_settings' => 'Benutzereinstellungen',
+    'import_file' => "Datei hochladen",
+    'import_posts' => "Beiträge importieren",
+    'select_file' => "Datei auswählen",
+    'export_file' => "XML Datei exportieren",
+    'export_posts' => "Beiträge exportieren",
 ];

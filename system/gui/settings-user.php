@@ -5,6 +5,10 @@ if(!check_session())
 {
     header('location: index.php');
 }
+
+$settings = getSettings();
+$langArray = require 'system/locale/'.$settings['language'].'.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userId = get_userfromhash(); // Angenommen, die Benutzer-ID wird in der Session gespeichert
     $name = $_POST['name'];
@@ -39,7 +43,7 @@ $user = getUserData($userIdDB['id']);
         <div uk-grid>
             <!-- Blogposts -->
             <div class="uk-width-2-3@s uk-width-1-1">
-            <h2>Benutzereinstellungen</h2>
+            <h2><?php echo $langArray['user_settings']; ?></h2>
 
 <?php if (isset($message)): ?>
     <p><?php echo htmlspecialchars($message); ?></p>
@@ -70,14 +74,18 @@ $user = getUserData($userIdDB['id']);
     </div>
 </form>
 
-<h2>Beiträge exportieren</h2>
-<a href="index.php?user&export=xml">Beiträge als XML exportieren</a>
-<h2>Beiträge importieren</h2>
+<h2><?php echo $langArray['export_posts']; ?></h2>
+<a href="index.php?user&export=xml"><?php echo $langArray['export_file']; ?></a>
+<h2><?php echo $langArray['import_posts']; ?></h2>
 <form action="api/import.php" method="post" enctype="multipart/form-data">
-    Wählen Sie die XML-Datei zum Hochladen aus:
-    <input type="file" name="xmlFile" accept=".xml">
-    <input type="submit" value="Upload XML">
-</form>
+        <div class="uk-margin" uk-margin>
+            <div uk-form-custom="target: true">
+                <input type="file" name="xmlFile" accept=".xml" aria-label="Custom controls">
+                <input class="uk-input uk-form-width-medium" type="text" placeholder="Datei auswählen" aria-label="Custom controls" disabled>
+            </div>
+            <button class="uk-button uk-button-default" type="submit"><?php echo $langArray['import_file']; ?></button>
+        </div>
+    </form>
 </div>
 </div>
 </div>

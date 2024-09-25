@@ -44,5 +44,12 @@ return [
     'newuser' => 'Add new user',
     'edituser' => 'Edit User',
     'deletenotify' => "Are you sure you want to delete this user? All posts are also deleted",
+    # USER SETTINGS
+    'user_settings' => 'User Settings',
+    'import_file' => "Upload file",
+    'import_posts' => "import posts",
+    'select_file' => "Select File",
+    'export_file' => "export to xml",
+    'export_posts' => "export posts",
 
 ];

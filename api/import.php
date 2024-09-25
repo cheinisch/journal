@@ -3,6 +3,7 @@
 // Funktion zum Importieren von XML-Daten in die Datenbank
 function importPostsFromXML($xmlFilePath, $userId) {
 
+
     // Prüfen, ob die Datei existiert
     if (!file_exists($xmlFilePath)) {
         die("Die XML-Datei existiert nicht.");
