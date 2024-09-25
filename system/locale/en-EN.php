@@ -46,6 +46,12 @@ return [
     'deletenotify' => "Are you sure you want to delete this user? All posts are also deleted",
     # USER SETTINGS
     'user_settings' => 'User Settings',
+    'user_settings_name' => 'Name',
+    'user_settings_mail' => 'E-Mail',
+    'user_settings_oldpw' => 'old password',
+    'user_settings_newpw' => 'new password (optional)',
+    'user_settings_newpw2' => 'confirm new password',
+    'user_settings_save' => 'Save settings',
     'import_file' => "Upload file",
     'import_posts' => "import posts",
     'select_file' => "Select File",

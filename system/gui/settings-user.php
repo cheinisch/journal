@@ -50,27 +50,27 @@ $user = getUserData($userIdDB['id']);
 <?php endif; ?>
 <form class="uk-form-stacked" method="POST" action="index.php?user">
     <div class="uk-margin">
-        <label for="name">Name:</label>
+        <label for="name"><?php echo $langArray['user_settings_name']; ?>:</label>
         <input class="uk-input" type="text" name="name" id="name" value="<?php echo htmlspecialchars($user['username']); ?>" required>
     </div>
     <div class="uk-margin">
-        <label for="email">E-Mail:</label>
+        <label for="email"><?php echo $langArray['user_settings_mail']; ?>:</label>
         <input class="uk-input" type="email" name="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
     </div>
     <div>
-        <label for="old_password">Altes Passwort:</label>
+        <label for="old_password"><?php echo $langArray['user_settings_oldpw']; ?>:</label>
         <input type="password" name="old_password" id="old_password" required>
     </div>
     <div>
-        <label for="password">Neues Passwort (optional):</label>
+        <label for="password"><?php echo $langArray['user_settings_newpw']; ?>:</label>
         <input type="password" name="password" id="password">
     </div>
     <div>
-        <label for="confirm_password">Neues Passwort bestätigen:</label>
+        <label for="confirm_password"><?php echo $langArray['user_settings_newpw2']; ?>:</label>
         <input type="password" name="confirm_password" id="confirm_password">
     </div>
     <div>
-        <button type="submit">Einstellungen speichern</button>
+        <button type="submit"><?php echo $langArray['user_settings_save']; ?></button>
     </div>
 </form>
 

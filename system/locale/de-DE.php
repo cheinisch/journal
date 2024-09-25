@@ -46,6 +46,12 @@ return [
     'deletenotify' => "Sind sie sich wirklich sicher? Es werden auch alle Einträge gelöscht",
     # USER SETTINGS
     'user_settings' => 'Benutzereinstellungen',
+    'user_settings_name' => 'Name',
+    'user_settings_mail' => 'E-Mail',
+    'user_settings_oldpw' => 'Altes Passwort',
+    'user_settings_newpw' => 'Neues Passwort (optional)',
+    'user_settings_newpw2' => 'Neues Passwort bestätigen',
+    'user_settings_save' => 'Einstellungen speichern',
     'import_file' => "Datei hochladen",
     'import_posts' => "Beiträge importieren",
     'select_file' => "Datei auswählen",
