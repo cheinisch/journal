@@ -57,20 +57,20 @@ $user = getUserData($userIdDB['id']);
         <label for="email"><?php echo $langArray['user_settings_mail']; ?>:</label>
         <input class="uk-input" type="email" name="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
     </div>
-    <div>
+    <div class="uk-margin">
         <label for="old_password"><?php echo $langArray['user_settings_oldpw']; ?>:</label>
-        <input type="password" name="old_password" id="old_password" required>
+        <input class="uk-input" type="password" name="old_password" id="old_password" required>
     </div>
-    <div>
+    <div class="uk-margin">
         <label for="password"><?php echo $langArray['user_settings_newpw']; ?>:</label>
-        <input type="password" name="password" id="password">
+        <input class="uk-input" type="password" name="password" id="password">
     </div>
-    <div>
+    <div class="uk-margin">
         <label for="confirm_password"><?php echo $langArray['user_settings_newpw2']; ?>:</label>
-        <input type="password" name="confirm_password" id="confirm_password">
+        <input class="uk-input" type="password" name="confirm_password" id="confirm_password">
     </div>
-    <div>
-        <button type="submit"><?php echo $langArray['user_settings_save']; ?></button>
+    <div class="uk-margin">
+        <button class="uk-button uk-button-primary" type="submit"><?php echo $langArray['user_settings_save']; ?></button>
     </div>
 </form>
 
@@ -83,7 +83,7 @@ $user = getUserData($userIdDB['id']);
                 <input type="file" name="xmlFile" accept=".xml" aria-label="Custom controls">
                 <input class="uk-input uk-form-width-medium" type="text" placeholder="Datei auswählen" aria-label="Custom controls" disabled>
             </div>
-            <button class="uk-button uk-button-default" type="submit"><?php echo $langArray['import_file']; ?></button>
+            <button class="uk-button uk-button-primary" type="submit"><?php echo $langArray['import_file']; ?></button>
         </div>
     </form>
 </div>
