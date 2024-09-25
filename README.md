@@ -23,3 +23,4 @@ Jrnl is a simple php based personal diary or log book. This Webapplication uses 
 * Password reset
 * Language support (fr and it)
 * Add Location to posts
+* Import Data
