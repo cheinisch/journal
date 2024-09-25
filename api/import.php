@@ -22,6 +22,7 @@ function importPostsFromXML($xmlFilePath, $userId) {
         $postId = (int)$post->id;
         $title = (string)$post->title;
         $content = (string)$post->content;
+        $date = (string)$post->date;
 
         // Überprüfen, ob der Post bereits existiert
         $stmt = $db->prepare("SELECT COUNT(*) FROM posts WHERE id = :id AND author_id = :userId");
@@ -32,18 +33,19 @@ function importPostsFromXML($xmlFilePath, $userId) {
 
         if ($postExists) {
             // Falls der Post existiert, diesen aktualisieren
-            $stmt = $db->prepare("UPDATE posts SET title = :title, content = :content WHERE id = :id AND author_id = :userId");
+            $stmt = $db->prepare("UPDATE posts SET title = :title, content = :content, date = :date WHERE id = :id AND author_id = :userId");
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':content', $content, PDO::PARAM_STR);
             $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         } else {
             // Falls der Post nicht existiert, einen neuen Eintrag erstellen
-            $stmt = $db->prepare("INSERT INTO posts (id, author_id, title, content) VALUES (:id, :userId, :title, :content)");
-            $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
+            $stmt = $db->prepare("INSERT INTO posts (author_id, title, content, date) VALUES (:userId, :title, :content, :date)");
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+            $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         }
 
         // Query ausführen
@@ -52,6 +54,9 @@ function importPostsFromXML($xmlFilePath, $userId) {
 
     // Erfolgreicher Import
     echo "Posts wurden erfolgreich importiert.";
+
+    $parent = dirname($_SERVER['REQUEST_URI']);
+    header("Location: ./../index.php");
 }
 
 function getDatabaseConnection() {
