@@ -10,7 +10,7 @@ Jrnl is a simple php based personal diary or log book. This Webapplication uses 
 * language support (de and en)
 * Multiple User Accounts
 * Markdown is possible
-* Export is possible
+* Export and Import are possible
 
 ### Requirements
 
@@ -23,4 +23,3 @@ Jrnl is a simple php based personal diary or log book. This Webapplication uses 
 * Password reset
 * Language support (fr and it)
 * Add Location to posts
-* Import Data
