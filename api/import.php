@@ -25,9 +25,9 @@ function importPostsFromXML($xmlFilePath, $userId) {
         $date = (string)$post->date;
 
         // Überprüfen, ob der Post bereits existiert
-        $stmt = $db->prepare("SELECT COUNT(*) FROM posts WHERE id = :id AND author_id = :userId");
-        $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
+        $stmt = $db->prepare("SELECT COUNT(*) FROM posts WHERE date = :date AND author_id = :userId");
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->execute();
         $postExists = $stmt->fetchColumn();
 
