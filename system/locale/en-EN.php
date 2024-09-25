@@ -48,6 +48,7 @@ return [
     'user_settings' => 'User Settings',
     'user_settings_name' => 'Name',
     'user_settings_mail' => 'E-Mail',
+    'user_settings_pwchange' => 'Change Password (optional)',
     'user_settings_oldpw' => 'old password',
     'user_settings_newpw' => 'new password (optional)',
     'user_settings_newpw2' => 'confirm new password',

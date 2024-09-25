@@ -57,6 +57,10 @@ $user = getUserData($userIdDB['id']);
         <label for="email"><?php echo $langArray['user_settings_mail']; ?>:</label>
         <input class="uk-input" type="email" name="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
     </div>
+
+    <h3><?php echo $langArray['user_settings_pwchange']; ?></h3>
+    <hr>
+
     <div class="uk-margin">
         <label for="old_password"><?php echo $langArray['user_settings_oldpw']; ?>:</label>
         <input class="uk-input" type="password" name="old_password" id="old_password" required>
