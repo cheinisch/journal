@@ -22,8 +22,6 @@ function importPostsFromXML($xmlFilePath, $userId) {
         $postId = (int)$post->id;
         $title = (string)$post->title;
         $content = (string)$post->content;
-        $created_at = (string)$post->created_at;
-        $updated_at = (string)$post->updated_at;
 
         // Überprüfen, ob der Post bereits existiert
         $stmt = $db->prepare("SELECT COUNT(*) FROM posts WHERE id = :id AND author_id = :userId");
@@ -34,21 +32,18 @@ function importPostsFromXML($xmlFilePath, $userId) {
 
         if ($postExists) {
             // Falls der Post existiert, diesen aktualisieren
-            $stmt = $db->prepare("UPDATE posts SET title = :title, content = :content, updated_at = :updated_at WHERE id = :id AND author_id = :userId");
+            $stmt = $db->prepare("UPDATE posts SET title = :title, content = :content WHERE id = :id AND author_id = :userId");
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':content', $content, PDO::PARAM_STR);
-            $stmt->bindParam(':updated_at', $updated_at, PDO::PARAM_STR);
             $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
         } else {
             // Falls der Post nicht existiert, einen neuen Eintrag erstellen
-            $stmt = $db->prepare("INSERT INTO posts (id, author_id, title, content, created_at, updated_at) VALUES (:id, :userId, :title, :content, :created_at, :updated_at)");
+            $stmt = $db->prepare("INSERT INTO posts (id, author_id, title, content) VALUES (:id, :userId, :title, :content)");
             $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':content', $content, PDO::PARAM_STR);
-            $stmt->bindParam(':created_at', $created_at, PDO::PARAM_STR);
-            $stmt->bindParam(':updated_at', $updated_at, PDO::PARAM_STR);
         }
 
         // Query ausführen
@@ -59,10 +54,74 @@ function importPostsFromXML($xmlFilePath, $userId) {
     echo "Posts wurden erfolgreich importiert.";
 }
 
+function getDatabaseConnection() {
+
+    $config = require('../storage/config.php');
+
+    $dbHost = $config['db']['host'];
+    $dbName = $config['db']['name'];
+    $dbUser = $config['db']['user'];
+    $dbPass = $config['db']['pass'];
+
+    $host = $dbHost; // Hostname oder IP-Adresse
+    $dbname = $dbName;    // Datenbankname
+    $username = $dbUser;  // Benutzername
+    $password = $dbPass;      // Passwort
+
+    try {
+        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
+        $options = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ];
+        return new PDO($dsn, $username, $password, $options);
+    } catch (PDOException $e) {
+        die("Datenbankverbindung fehlgeschlagen: " . $e->getMessage());
+    }
+}
+
+function get_userfromhash()
+{
+  $db = getDatabaseConnection();
+
+  $sql = "SELECT id, username, userrole FROM users";
+  $stmt = $db->prepare($sql);
+  $stmt->execute();
+
+  $users = $stmt->fetchAll();
+
+  foreach ($users as $user) {
+    if(get_userhash($user['username']) == get_userfromsession())
+    {
+    return $user;
+    }
+  }
+    return "";
+
+
+}
+
+function get_userhash($username)
+{
+  $userhash = hash('sha256', $username);
+  return $userhash;
+}
+
+function get_userfromsession()
+{
+  $cookie_name = 'jrnl';
+
+  if(!isset($_COOKIE[$cookie_name])) {
+    return "";
+  } else {
+    return $_COOKIE[$cookie_name];
+  }
+
+  
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['xmlFile'])) {
 
-    require_once('../system/function/function.php');
 
     $fileTmpPath = $_FILES['xmlFile']['tmp_name'];
     $userId = get_userfromhash();
